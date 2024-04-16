@@ -6,3 +6,9 @@ export interface IPost {
   photo?: string
   blogCoverPhoto?: string
 }
+
+export interface IBlogCard {
+  blogTitle: string
+  blogCoverPhoto: string
+  blogDate: string
+}

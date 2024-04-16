@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import BlogPost from '../components/BlogPost.vue'
+import BlogCard from '../components/BlogCard.vue'
+import Updates from '../components/Updates.vue'
 
 const welcomeScreen = reactive({
   title: 'Welcome!',
@@ -21,7 +23,6 @@ const sampleBlogPost = reactive([
     blogCoverPhoto: 'designed-for-everyone'
   }
 ])
-
 const sampleBlogCards = reactive([
   {
     blogTitle: 'Blog Card #1',
@@ -50,5 +51,24 @@ const sampleBlogCards = reactive([
   <div class="home">
     <BlogPost :post="welcomeScreen" />
     <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index" />
+    <div class="blog-card-wrap">
+      <div class="container">
+        <h3>View More Recent Blogs</h3>
+        <div class="blog-cards">
+          <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+        </div>
+      </div>
+    </div>
+    <Updates />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.blog-card-wrap {
+  h3 {
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+}
+</style>

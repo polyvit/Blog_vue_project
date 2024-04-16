@@ -9,3 +9,8 @@ Stack:
 - SCSS
 - TypeScript
 - Vue3
+
+Tasks:
+
+[] - separate ui elements and make ui kit
+[] - change layout

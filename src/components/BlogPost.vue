@@ -2,14 +2,11 @@
 import type { IPost } from '../types'
 import { defineProps } from 'vue'
 import IconArrowRight from '../components/icons/IconArrorRight.vue'
+import { getImageUrl } from '../utils'
 
 defineProps<{
   post: IPost
 }>()
-
-const getImageUrl = (name: string | undefined) => {
-  return new URL(`../assets/blogPhotos/${name}.jpg`, import.meta.url).href
-}
 </script>
 
 <template>
@@ -29,8 +26,8 @@ const getImageUrl = (name: string | undefined) => {
       </div>
     </div>
     <div class="blog-photo">
-      <img v-if="post.welcomeScreen" :src="getImageUrl(post.photo)" alt="photo" />
-      <img v-else :src="getImageUrl(post.blogCoverPhoto)" alt="photo" />
+      <img v-if="post.welcomeScreen" :src="getImageUrl(post.photo, 'blogPhotos')" alt="photo" />
+      <img v-else :src="getImageUrl(post.blogCoverPhoto, 'blogPhotos')" alt="photo" />
     </div>
   </div>
 </template>
@@ -104,12 +101,6 @@ const getImageUrl = (name: string | undefined) => {
 
         &:hover {
           border-bottom-color: #303030;
-        }
-
-        .arrow {
-          width: 15px;
-          height: 15px;
-          margin-left: 10px;
         }
       }
 
