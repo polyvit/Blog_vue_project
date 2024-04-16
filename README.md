@@ -9,6 +9,7 @@ Stack:
 - SCSS
 - TypeScript
 - Vue3
+- Pinia
 
 Tasks:
 

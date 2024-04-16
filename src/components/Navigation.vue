@@ -36,8 +36,8 @@ onMounted(() => {
       </div>
       <div class="nav-links">
         <ul v-show="!mobile">
-          <RouterLink class="link" to="#">Home</RouterLink>
-          <RouterLink class="link" to="#">Blogs</RouterLink>
+          <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
+          <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
           <RouterLink class="link" to="#">Create Post</RouterLink>
           <RouterLink class="link" to="#">Login/Register</RouterLink>
         </ul>
@@ -46,8 +46,8 @@ onMounted(() => {
     <IconMenuBurger @click="toggleMobileNav" class="menu-icon" v-show="mobile" />
     <transition name="mobile-nav" class="mobile-nav">
       <ul v-show="mobileNav">
-        <RouterLink class="link" to="#">Home</RouterLink>
-        <RouterLink class="link" to="#">Blogs</RouterLink>
+        <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
+        <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
         <RouterLink class="link" to="#">Create Post</RouterLink>
         <RouterLink class="link" to="#">Login/Register</RouterLink>
       </ul>

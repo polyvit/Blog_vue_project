@@ -1,19 +1,26 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 import type { IBlogCard } from '../types'
 import IconArrowRight from '../components/icons/IconArrorRight.vue'
 import IconEdit from './icons/IconEdit.vue'
 import IconDelete from './icons/IconDelete.vue'
 import { getImageUrl } from '../utils'
+import { usePostsStore } from '../stores/PostsStore'
+
+const postsStore = usePostsStore()
 
 defineProps<{
   post: IBlogCard
 }>()
+
+const editPost = computed(() => {
+  return postsStore.editPost
+})
 </script>
 
 <template>
   <div class="blog-card">
-    <div class="icons">
+    <div v-show="editPost" class="icons">
       <div class="icon">
         <IconEdit class="edit" />
       </div>
