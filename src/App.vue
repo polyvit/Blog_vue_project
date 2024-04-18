@@ -1,14 +1,32 @@
 <script setup lang="ts">
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
+import { ref, watch, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const navDisabled = ref<boolean | null>(null)
+const checkRoute = () => {
+  if (route.name === 'login' || route.name == 'register' || route.name === 'reset-password') {
+    navDisabled.value = true
+    return
+  }
+  navDisabled.value = false
+}
+onMounted(() => {
+  checkRoute()
+})
+
+watch(route, () => checkRoute())
 </script>
 
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Navigation />
+      <Navigation v-show="!navDisabled" />
       <RouterView />
-      <Footer />
+      <Footer v-show="!navDisabled" />
     </div>
   </div>
 </template>

@@ -12,3 +12,9 @@ export interface IBlogCard {
   blogCoverPhoto: string
   blogDate: string
 }
+
+export interface IAuthLayoutProps {
+  linkTitle: string
+  route: string
+  title: string
+}

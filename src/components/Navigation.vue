@@ -39,7 +39,7 @@ onMounted(() => {
           <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
           <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
           <RouterLink class="link" to="#">Create Post</RouterLink>
-          <RouterLink class="link" to="#">Login/Register</RouterLink>
+          <RouterLink class="link" :to="{ name: 'login' }">Login/Register</RouterLink>
         </ul>
       </div>
     </nav>
@@ -49,7 +49,7 @@ onMounted(() => {
         <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
         <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
         <RouterLink class="link" to="#">Create Post</RouterLink>
-        <RouterLink class="link" to="#">Login/Register</RouterLink>
+        <RouterLink class="link" :to="{ name: 'login' }">Login/Register</RouterLink>
       </ul>
     </transition>
   </header>
