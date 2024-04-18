@@ -3,6 +3,9 @@ import type { IPost } from '../types'
 import { defineProps } from 'vue'
 import IconArrowRight from '../components/icons/IconArrorRight.vue'
 import { getImageUrl } from '../utils'
+import { useUserStore } from '../stores/UserStore'
+
+const { authUser } = useUserStore()
 
 defineProps<{
   post: IPost
@@ -10,7 +13,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="blog-wrapper no-user">
+  <div class="blog-wrapper" :class="{ 'no-user': !authUser }">
     <div class="blog-content">
       <div>
         <h2 v-if="post.welcomeScreen">{{ post.title }}</h2>

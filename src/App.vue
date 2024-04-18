@@ -24,6 +24,7 @@ onMounted(() => {
     if (user) {
       userStore.updateUser(user)
       userStore.getCurrentUser()
+      console.log(userStore.authUser)
     }
   })
 })

@@ -5,8 +5,10 @@ import BlogCard from '../components/BlogCard.vue'
 import Updates from '../components/Updates.vue'
 import { computed } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
+import { useUserStore } from '../stores/UserStore'
 
 const postsStore = usePostsStore()
+const { authUser } = useUserStore()
 
 const welcomeScreen = reactive({
   title: 'Welcome!',
@@ -35,7 +37,7 @@ const sampleBlogCards = computed(() => {
 
 <template>
   <div class="home">
-    <BlogPost :post="welcomeScreen" />
+    <BlogPost v-if="!authUser" :post="welcomeScreen" />
     <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index" />
     <div class="blog-card-wrap">
       <div class="container">

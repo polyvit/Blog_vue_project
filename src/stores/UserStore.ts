@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { getAuth } from 'firebase/auth'
 import { collection, doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebaseInit'
 import type { IProfile } from '../types'
 
 export const useUserStore = defineStore('userStore', () => {
-  let user = ref({})
+  let user = ref(null)
   const profile = reactive<IProfile>({
     profileEmail: null,
     profileFirstName: null,
@@ -15,6 +15,8 @@ export const useUserStore = defineStore('userStore', () => {
     profileId: null,
     profileInitials: null
   })
+
+  const authUser = computed(() => user.value)
   // @ts-ignore
   function setProfileInfo(data) {
     profile.profileEmail = data.data().email
@@ -50,6 +52,9 @@ export const useUserStore = defineStore('userStore', () => {
 
   return {
     getCurrentUser,
-    updateUser
+    updateUser,
+    profile,
+    user,
+    authUser
   }
 })

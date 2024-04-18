@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import IconMenuBurger from './icons/IconMenuBurger.vue'
+import ProfileMenu from './ProfileMenu.vue'
 import { ref } from 'vue'
 import { onMounted } from 'vue'
+import { useUserStore } from '../stores/UserStore'
+
+const { authUser } = useUserStore()
 
 const mobile = ref<null | boolean>(null)
 const mobileNav = ref<null | boolean>(null)
@@ -39,8 +43,11 @@ onMounted(() => {
           <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
           <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
           <RouterLink class="link" to="#">Create Post</RouterLink>
-          <RouterLink class="link" :to="{ name: 'login' }">Login/Register</RouterLink>
+          <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
+            >Login/Register</RouterLink
+          >
         </ul>
+        <ProfileMenu v-if="authUser" />
       </div>
     </nav>
     <IconMenuBurger @click="toggleMobileNav" class="menu-icon" v-show="mobile" />
