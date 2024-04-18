@@ -3,9 +3,11 @@ import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
 import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { getAuth } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { useUserStore } from './stores/UserStore'
 
 const route = useRoute()
+const userStore = useUserStore()
 
 const navDisabled = ref<boolean | null>(null)
 const checkRoute = () => {
@@ -18,7 +20,12 @@ const checkRoute = () => {
 onMounted(() => {
   checkRoute()
   const auth = getAuth()
-  console.log(auth.currentUser)
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      userStore.updateUser(user)
+      userStore.getCurrentUser()
+    }
+  })
 })
 
 watch(route, () => checkRoute())

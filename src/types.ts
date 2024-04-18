@@ -18,3 +18,12 @@ export interface IAuthLayoutProps {
   route: string
   title: string
 }
+
+export interface IProfile {
+  profileEmail: null | string
+  profileFirstName: null | string
+  profileLastName: null | string
+  profileUsername: null | string
+  profileId: null | string
+  profileInitials: null | string
+}
