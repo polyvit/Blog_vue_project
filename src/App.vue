@@ -3,6 +3,7 @@ import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
 import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { getAuth } from 'firebase/auth'
 
 const route = useRoute()
 
@@ -16,6 +17,8 @@ const checkRoute = () => {
 }
 onMounted(() => {
   checkRoute()
+  const auth = getAuth()
+  console.log(auth.currentUser)
 })
 
 watch(route, () => checkRoute())

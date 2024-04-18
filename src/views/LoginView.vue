@@ -4,6 +4,10 @@ import AuthLayout from '../components/AuthLayout.vue'
 import IconEnvelope from '../components/icons/IconEnvelope.vue'
 import IconLock from '../components/icons/IconLock.vue'
 import { reactive, ref } from 'vue'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const data: IAuthLayoutProps = {
   title: 'Login to Our Blog',
@@ -24,6 +28,21 @@ const formData = reactive<{
 const login = () => {
   if (formData.email !== '' && formData.password !== '') {
     error.value = false
+    errorMsg.value = ''
+    const auth = getAuth()
+    const res = signInWithEmailAndPassword(auth, formData.email, formData.password)
+    res
+      .then(() => {
+        router.push({ name: 'home' })
+        error.value = false
+        errorMsg.value = ''
+        console.log('auth', auth.currentUser?.uid)
+      })
+      .catch((err) => {
+        console.log('err', err)
+        error.value = true
+        errorMsg.value = err.message
+      })
     return
   }
   error.value = true

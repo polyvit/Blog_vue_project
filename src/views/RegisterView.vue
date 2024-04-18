@@ -5,6 +5,12 @@ import IconEnvelope from '../components/icons/IconEnvelope.vue'
 import IconLock from '../components/icons/IconLock.vue'
 import IconUserLight from '../components/icons/IconUserLight.vue'
 import { reactive, ref } from 'vue'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { collection, doc, setDoc } from 'firebase/firestore'
+import { db } from '../firebase/firebaseInit'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const data: IAuthLayoutProps = {
   title: 'Create Your Blog Account',
@@ -37,6 +43,16 @@ const register = async () => {
     formData.username !== ''
   ) {
     error.value = false
+    errorMsg.value = ''
+    const auth = getAuth()
+    const res = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+    await setDoc(doc(collection(db, 'users'), res.user.uid), {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      username: formData.username,
+      email: formData.email
+    })
+    router.push({ name: 'home' })
     return
   }
   error.value = true
