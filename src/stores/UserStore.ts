@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 import { getAuth } from 'firebase/auth'
-import { collection, doc, getDoc } from 'firebase/firestore'
+import { updateDoc, doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebaseInit'
 import type { IProfile } from '../types'
 
@@ -16,7 +16,16 @@ export const useUserStore = defineStore('userStore', () => {
     profileInitials: null
   })
 
-  const authUser = computed(() => user.value)
+  function updateFirstName(value: string) {
+    profile.profileFirstName = value
+  }
+  function updateLastName(value: string) {
+    profile.profileLastName = value
+  }
+  function updateUsername(value: string) {
+    profile.profileUsername = value
+  }
+
   // @ts-ignore
   function setProfileInfo(data) {
     profile.profileEmail = data.data().email
@@ -24,7 +33,6 @@ export const useUserStore = defineStore('userStore', () => {
     profile.profileLastName = data.data().lastName
     profile.profileUsername = data.data().username
     profile.profileId = data.id
-    console.log(profile)
   }
   function setProfileInitials() {
     profile.profileInitials =
@@ -49,12 +57,23 @@ export const useUserStore = defineStore('userStore', () => {
     } else {
     }
   }
+  async function updateUserProfile() {
+    await updateDoc(doc(db, 'users', profile.profileId as string), {
+      firstName: profile.profileFirstName,
+      lastName: profile.profileLastName,
+      username: profile.profileUsername
+    })
+    setProfileInitials()
+  }
 
   return {
     getCurrentUser,
     updateUser,
     profile,
     user,
-    authUser
+    updateFirstName,
+    updateLastName,
+    updateUsername,
+    updateUserProfile
   }
 })

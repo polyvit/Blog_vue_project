@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import IconMenuBurger from './icons/IconMenuBurger.vue'
 import ProfileMenu from './ProfileMenu.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { onMounted } from 'vue'
 import { useUserStore } from '../stores/UserStore'
 
-const { authUser } = useUserStore()
+const authUser = computed(() => useUserStore().user)
 
 const mobile = ref<null | boolean>(null)
 const mobileNav = ref<null | boolean>(null)

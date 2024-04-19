@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { IPost } from '../types'
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 import IconArrowRight from '../components/icons/IconArrorRight.vue'
 import { getImageUrl } from '../utils'
 import { useUserStore } from '../stores/UserStore'
 
-const { authUser } = useUserStore()
+const authUser = computed(() => useUserStore().user)
 
 defineProps<{
   post: IPost
@@ -20,7 +20,7 @@ defineProps<{
         <h2 v-else>{{ post.title }}</h2>
         <p v-if="post.welcomeScreen">{{ post.blogPost }}</p>
         <p class="content-preview" v-else v-html="post.blogHTML"></p>
-        <RouterLink v-if="post.welcomeScreen" to="#" class="link link-light"
+        <RouterLink v-if="post.welcomeScreen" :to="{ name: 'login' }" class="link link-light"
           >Login/Register<IconArrowRight class="arrow arrow-light"
         /></RouterLink>
         <RouterLink v-else to="#" class="link"

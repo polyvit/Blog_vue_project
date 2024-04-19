@@ -2,6 +2,10 @@
 import IconInstagram from './icons/IconInstagram.vue'
 import IconTwitter from './icons/IconTwitter.vue'
 import IconYoutube from './icons/IconYoutube.vue'
+import { useUserStore } from '../stores/UserStore'
+import { computed } from 'vue'
+
+const authUser = computed(() => useUserStore().user)
 </script>
 
 <template>
@@ -31,9 +35,11 @@ import IconYoutube from './icons/IconYoutube.vue'
         <div class="col-2">
           <ul>
             <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
-            <RouterLink class="link" :to="{ name: 'home' }">Blogs</RouterLink>
+            <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
             <RouterLink class="link" :to="{ name: 'home' }">Create Post</RouterLink>
-            <RouterLink class="link" :to="{ name: 'home' }">Log In / Register</RouterLink>
+            <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
+              >Log In / Register</RouterLink
+            >
           </ul>
         </div>
       </div>

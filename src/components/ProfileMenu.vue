@@ -5,8 +5,10 @@ import IconAdmin from './icons/IconAdmin.vue'
 import { ref } from 'vue'
 import { useUserStore } from '../stores/UserStore'
 import { getAuth, signOut } from 'firebase/auth'
+import { useRouter } from 'vue-router'
 
 const userStore = useUserStore()
+const router = useRouter()
 
 const showProfileMenu = ref<boolean>(false)
 
@@ -17,7 +19,8 @@ const toggleProfileMenu = () => {
 const signOutHandler = () => {
   const auth = getAuth()
   signOut(auth).then(() => {
-    window.location.reload()
+    router.push({ name: 'login' })
+    // window.location.reload()
   })
 }
 </script>

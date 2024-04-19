@@ -36,7 +36,6 @@ const login = () => {
         router.push({ name: 'home' })
         error.value = false
         errorMsg.value = ''
-        console.log('auth', auth.currentUser?.uid)
       })
       .catch((err) => {
         console.log('err', err)

@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import BlogPost from '../components/BlogPost.vue'
 import BlogCard from '../components/BlogCard.vue'
 import Updates from '../components/Updates.vue'
-import { computed } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
 import { useUserStore } from '../stores/UserStore'
 
 const postsStore = usePostsStore()
-const { authUser } = useUserStore()
+const authUser = computed(() => useUserStore().user)
 
 const welcomeScreen = reactive({
   title: 'Welcome!',
