@@ -5,9 +5,11 @@ import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useUserStore } from './stores/UserStore'
+import { useBlogStore } from './stores/BlogStore'
 
 const route = useRoute()
 const userStore = useUserStore()
+const { getPostsFromDb } = useBlogStore()
 
 const navDisabled = ref<boolean | null>(null)
 const checkRoute = () => {
@@ -26,6 +28,7 @@ onMounted(() => {
       userStore.getCurrentUser()
     }
   })
+  getPostsFromDb()
 })
 
 watch(route, () => checkRoute())

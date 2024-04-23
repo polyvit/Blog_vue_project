@@ -43,8 +43,7 @@ export interface IBlogPost {
   blogCoverPhoto: string
   blogCoverPhotoName: string
   blogHTML: string
-  blogID: string
+  blogId: string
   blogTitle: string
   date: Date
-  profileId: string
 }
