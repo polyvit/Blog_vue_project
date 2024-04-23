@@ -6,6 +6,7 @@ window.Quill = Quill
 //@ts-ignore
 import ImageResize from 'quill-image-resize-module--fix-imports-error'
 import { computed, reactive, ref } from 'vue'
+import { getStorage, ref as firebaseRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import Loader from '../components/Loader.vue'
 import PhotoPreview from '../components/PhotoPreview.vue'
 import { useBlogStore } from '../stores/BlogStore'
@@ -23,7 +24,7 @@ Quill.register('modules/imageResize', ImageResize)
 const blogStore = useBlogStore()
 const userStore = useUserStore()
 
-const file = ref(null)
+const inputFile = ref<File | null>(null)
 const blogPhoto = ref<HTMLInputElement | null>(null)
 
 const blogTitle = computed({
@@ -51,11 +52,23 @@ const profileId = computed(() => {
 
 const uploadFileHandler = () => {
   if (blogPhoto.value && blogPhoto.value.files) {
+    inputFile.value = blogPhoto.value.files[0]
     blogStore.uploadFile(blogPhoto.value.files[0])
   }
 }
 const togglePhotoPreview = () => {
   blogStore.blog.blogPhotoPreview = !blogStore.blog.blogPhotoPreview
+}
+//@ts-ignore
+const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
+  const storage = getStorage()
+  const docRef = firebaseRef(storage, `documents/blogPostPhotos/${file.name}`)
+  uploadBytes(docRef, file).then(() => {
+    getDownloadURL(docRef).then((url) => {
+      Editor.insertEmbed(cursorLocation, 'image', url)
+      resetUploader()
+    })
+  })
 }
 </script>
 
@@ -89,7 +102,12 @@ const togglePhotoPreview = () => {
         </div>
       </div>
       <div class="editor">
-        <VueEditor v-model="blogHTML" :editorOptions="editorSettings" useCustomImageHandler />
+        <VueEditor
+          v-model="blogHTML"
+          :editorOptions="editorSettings"
+          useCustomImageHandler
+          @image-added="imageAddedHandler"
+        />
       </div>
       <div class="actions">
         <button>Publish</button>
