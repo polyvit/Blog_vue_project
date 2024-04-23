@@ -7,6 +7,7 @@ import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import CreatePostView from '../views/CreatePostView.vue'
 import PostPreview from '../views/PostPreview.vue'
+import PostView from '../views/PostView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +74,14 @@ const router = createRouter({
       component: PostPreview,
       meta: {
         title: 'Post Preview'
+      }
+    },
+    {
+      path: '/view-post/:postId',
+      name: 'view-post',
+      component: PostView,
+      meta: {
+        title: 'Post'
       }
     }
   ]

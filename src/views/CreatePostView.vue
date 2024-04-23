@@ -7,10 +7,13 @@ window.Quill = Quill
 import ImageResize from 'quill-image-resize-module--fix-imports-error'
 import { computed, reactive, ref } from 'vue'
 import { getStorage, ref as firebaseRef, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { doc, setDoc, collection } from 'firebase/firestore'
 import Loader from '../components/Loader.vue'
 import PhotoPreview from '../components/PhotoPreview.vue'
 import { useBlogStore } from '../stores/BlogStore'
 import { useUserStore } from '../stores/UserStore'
+import { db } from '../firebase/firebaseInit'
+import { useRouter } from 'vue-router'
 
 const editorSettings = reactive({
   editorSettings: {
@@ -21,11 +24,16 @@ const editorSettings = reactive({
 })
 Quill.register('modules/imageResize', ImageResize)
 
+const router = useRouter()
+
 const blogStore = useBlogStore()
 const userStore = useUserStore()
 
 const inputFile = ref<File | null>(null)
 const blogPhoto = ref<HTMLInputElement | null>(null)
+const error = ref<boolean | null>(null)
+const errorMsg = ref<string>('')
+const loading = ref<boolean>(false)
 
 const blogTitle = computed({
   get() {
@@ -50,6 +58,12 @@ const profileId = computed(() => {
   return userStore.profile.profileId
 })
 
+const showError = (errorText: string) => {
+  error.value = true
+  errorMsg.value = errorText
+  setTimeout(() => (error.value = false), 3000)
+}
+
 const uploadFileHandler = () => {
   if (blogPhoto.value && blogPhoto.value.files) {
     inputFile.value = blogPhoto.value.files[0]
@@ -70,15 +84,51 @@ const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
     })
   })
 }
+const publishPost = () => {
+  if (blogTitle.value.length !== 0 && blogHTML.value.length !== 0) {
+    if (inputFile.value) {
+      loading.value = true
+      const storage = getStorage()
+      const docRef = firebaseRef(
+        storage,
+        `documents/blogCoverPhotos/${blogStore.blog.blogPhotoName}`
+      )
+      uploadBytes(docRef, inputFile.value)
+        .then(() => {
+          getDownloadURL(docRef).then(async (url) => {
+            console.log('createeee')
+            const timestamp = Date.now()
+            const database = doc(collection(db, 'posts'))
+            await setDoc(database, {
+              blogId: database.id,
+              blogHTML: blogHTML.value,
+              blogCoverPhoto: url,
+              blogCoverPhotoName: blogCoverPhotoName.value,
+              blogTitle: blogTitle.value,
+              profileId: profileId.value,
+              date: timestamp
+            })
+            loading.value = false
+            router.push({ name: 'view-post', params: { blogId: database.id } })
+          })
+        })
+        .catch(() => (loading.value = false))
+      return
+    }
+    showError("Make sure you've uploaded cover photo")
+    return
+  }
+  showError("The title and main content can't be empty")
+}
 </script>
 
 <template>
   <div class="create-post">
     <PhotoPreview v-show="blogStore.blog.blogPhotoPreview" @close-modal="togglePhotoPreview" />
-    <Loader v-show="false" />
+    <Loader v-show="loading" />
     <div class="container">
-      <div class="err-message">
-        <p><span>Error:</span>ErrorMsg</p>
+      <div class="err-message" v-show="error">
+        <p><span>Error:</span>{{ errorMsg }}</p>
       </div>
       <div class="blog-info">
         <input type="text" placeholder="Enter Blog Title" v-model="blogTitle" />
@@ -98,7 +148,9 @@ const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
           >
             Preview Photo
           </button>
-          <span>File Chosen: {{ blogCoverPhotoName }}</span>
+          <span v-show="blogStore.blog.blogPhotoFileURL"
+            >File Chosen: {{ blogCoverPhotoName }}</span
+          >
         </div>
       </div>
       <div class="editor">
@@ -110,8 +162,8 @@ const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
         />
       </div>
       <div class="actions">
-        <button>Publish</button>
-        <RouterLink to="#" class="router-button">Post Preview</RouterLink>
+        <button @click="publishPost">Publish</button>
+        <RouterLink :to="{ name: 'preview' }" class="router-button">Post Preview</RouterLink>
       </div>
     </div>
   </div>
@@ -152,7 +204,7 @@ const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
   .container {
     position: relative;
     height: 100%;
-    padding: 10px 25px 60px;
+    padding: 50px;
   }
 
   .invisible {
@@ -222,21 +274,20 @@ const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
   }
 
   .editor {
-    height: 60vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 30px;
 
     .quillWrapper {
       position: relative;
       display: flex;
       flex-direction: column;
-      height: 100%;
     }
 
     .ql-container {
       display: flex;
       flex-direction: column;
-      height: 100%;
       overflow: scroll;
     }
 
@@ -246,8 +297,6 @@ const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
   }
 
   .blog-actions {
-    margin-top: 32px;
-
     button {
       margin-right: 16px;
     }
