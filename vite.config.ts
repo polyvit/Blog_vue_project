@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
+import inject from '@rollup/plugin-inject'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -8,7 +9,11 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   plugins: [
     vue(),
-    VueDevTools(),
+    VueDevTools()
+    // inject({
+    //   'window.Quill': 'quill/dist/quill.js',
+    //   Quill: 'quill/dist/quill.js'
+    // })
   ],
   resolve: {
     alias: {

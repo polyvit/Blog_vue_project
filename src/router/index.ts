@@ -5,7 +5,8 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import AdminView from '../views/AdminView.vue'
+import CreatePostView from '../views/CreatePostView.vue'
+import PostPreview from '../views/PostPreview.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,11 +60,19 @@ const router = createRouter({
       }
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: AdminView,
+      path: '/create-post',
+      name: 'create-post',
+      component: CreatePostView,
       meta: {
-        title: 'Admin'
+        title: 'Create Post'
+      }
+    },
+    {
+      path: '/preview',
+      name: 'preview',
+      component: PostPreview,
+      meta: {
+        title: 'Post Preview'
       }
     }
   ]

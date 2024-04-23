@@ -19,3 +19,5 @@ Tasks:
 [] - change layout design
 [] - add validation
 [] - add JWT
+[] - type lib quill-image-resize-module
+[] - delete ts ignore from store

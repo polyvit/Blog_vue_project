@@ -44,12 +44,12 @@ const signOutHandler = () => {
             <p>Profile</p>
           </RouterLink>
         </div>
-        <div class="option">
+        <!-- <div class="option">
           <RouterLink class="option" :to="{ name: 'admin' }">
             <IconAdmin class="icon" />
             <p>Admin</p>
           </RouterLink>
-        </div>
+        </div> -->
         <div @click="signOutHandler" class="option">
           <IconSignOut class="icon" />
           <p>Sign Out</p>
