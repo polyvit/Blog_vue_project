@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
-import type { IBlogCard } from '../types'
+import type { IBlogPost } from '../types'
 import IconArrowRight from '../components/icons/IconArrorRight.vue'
 import IconEdit from './icons/IconEdit.vue'
 import IconDelete from './icons/IconDelete.vue'
-import { getImageUrl } from '../utils'
 import { usePostsStore } from '../stores/PostsStore'
 
 const postsStore = usePostsStore()
 
 defineProps<{
-  post: IBlogCard
+  post: IBlogPost
 }>()
 
 const editPost = computed(() => {
@@ -28,11 +27,13 @@ const editPost = computed(() => {
         <IconDelete class="delete" />
       </div>
     </div>
-    <img :src="getImageUrl(post.blogCoverPhoto, 'blogCards')" alt="photo" />
+    <img :src="post.blogCoverPhoto" alt="photo" />
     <div class="info">
       <h4>{{ post.blogTitle }}</h4>
-      <h6>Posted on: {{ post.blogDate }}</h6>
-      <RouterLink class="link" to="#">View The Post<IconArrowRight class="arrow" /></RouterLink>
+      <h6>Posted on: {{ new Date(post.date).toLocaleString('en-US', { dateStyle: 'long' }) }}</h6>
+      <RouterLink class="link" :to="{ name: 'view-post', params: { postId: post.blogId } }"
+        >View The Post<IconArrowRight class="arrow"
+      /></RouterLink>
     </div>
   </div>
 </template>

@@ -3,10 +3,15 @@ import BlogCard from '../components/BlogCard.vue'
 import { computed } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
 import { onBeforeUnmount } from 'vue'
+import { useBlogStore } from '@/stores/BlogStore'
 
 const postsStore = usePostsStore()
-const sampleBlogCards = computed(() => {
-  return postsStore.sampleBlogCards
+const blogStore = useBlogStore()
+// const sampleBlogCards = computed(() => {
+//   return postsStore.sampleBlogCards
+// })
+const blogPostsCards = computed(() => {
+  return blogStore.blog.blogPosts.slice(2, 6)
 })
 
 const editPost = computed({
@@ -30,7 +35,7 @@ onBeforeUnmount(() => {
         <span>Toggle to edit posts</span>
         <input type="checkbox" v-model="editPost" />
       </div>
-      <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+      <BlogCard :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
     </div>
   </div>
 </template>

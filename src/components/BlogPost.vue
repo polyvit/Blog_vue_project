@@ -1,36 +1,41 @@
 <script setup lang="ts">
-import type { IPost } from '../types'
-import { computed, defineProps } from 'vue'
+import type { IPost, IBlogPost } from '../types'
+import { computed, defineProps, watch } from 'vue'
 import IconArrowRight from '../components/icons/IconArrorRight.vue'
 import { getImageUrl } from '../utils'
 import { useUserStore } from '../stores/UserStore'
 
 const authUser = computed(() => useUserStore().user)
 
-defineProps<{
-  post: IPost
+const props = defineProps<{
+  post: IBlogPost & IPost
 }>()
+watch(props, () => console.log(props.post))
 </script>
 
 <template>
   <div class="blog-wrapper" :class="{ 'no-user': !authUser }">
     <div class="blog-content">
       <div>
-        <h2 v-if="post.welcomeScreen">{{ post.title }}</h2>
-        <h2 v-else>{{ post.title }}</h2>
-        <p v-if="post.welcomeScreen">{{ post.blogPost }}</p>
+        <h2 v-if="post.welcomeScreen">{{ post.blogTitle }}</h2>
+        <h2 v-else>{{ post.blogTitle }}</h2>
+        <p v-if="post.welcomeScreen">{{ post.blogHTML }}</p>
         <p class="content-preview" v-else v-html="post.blogHTML"></p>
         <RouterLink v-if="post.welcomeScreen" :to="{ name: 'login' }" class="link link-light"
           >Login/Register<IconArrowRight class="arrow arrow-light"
         /></RouterLink>
-        <RouterLink v-else to="#" class="link"
+        <RouterLink v-else :to="{ name: 'view-post', params: { postId: post.blogId } }" class="link"
           >View The Post<IconArrowRight class="arrow"
         /></RouterLink>
       </div>
     </div>
     <div class="blog-photo">
-      <img v-if="post.welcomeScreen" :src="getImageUrl(post.photo, 'blogPhotos')" alt="photo" />
-      <img v-else :src="getImageUrl(post.blogCoverPhoto, 'blogPhotos')" alt="photo" />
+      <img
+        v-if="post.welcomeScreen"
+        :src="getImageUrl(post.blogCoverPhoto, 'blogPhotos')"
+        alt="photo"
+      />
+      <img v-else :src="post.blogCoverPhoto" alt="photo" />
     </div>
   </div>
 </template>

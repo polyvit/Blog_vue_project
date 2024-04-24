@@ -1,6 +1,6 @@
 import type { IBlog } from '../types'
 import { defineStore } from 'pinia'
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { db } from '../firebase/firebaseInit'
 import { doc, getDoc, getDocs, collection, query, orderBy } from 'firebase/firestore'
 
@@ -28,6 +28,14 @@ export const useBlogStore = defineStore('blogStore', () => {
     blog.blogPhotoName = ''
   }
 
+  const blogPostsFeed = computed(() => {
+    return blog.blogPosts.slice(0, 2)
+  })
+
+  const blogPostsCards = computed(() => {
+    return blog.blogPosts.slice(2, 6)
+  })
+
   async function getPostsFromDb() {
     const querySnapshot = await getDocs(collection(db, 'posts'))
     querySnapshot.forEach((doc) => {
@@ -51,6 +59,8 @@ export const useBlogStore = defineStore('blogStore', () => {
     postLoaded,
     uploadFile,
     getPostsFromDb,
-    cleanCreatePost
+    cleanCreatePost,
+    blogPostsFeed,
+    blogPostsCards
   }
 })
