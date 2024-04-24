@@ -96,7 +96,6 @@ const publishPost = () => {
       uploadBytes(docRef, inputFile.value)
         .then(() => {
           getDownloadURL(docRef).then(async (url) => {
-            console.log('createeee')
             const timestamp = Date.now()
             const database = doc(collection(db, 'posts'))
             await setDoc(database, {
@@ -109,7 +108,8 @@ const publishPost = () => {
               date: timestamp
             })
             loading.value = false
-            router.push({ name: 'view-post', params: { blogId: database.id } })
+            await blogStore.getPostsFromDb()
+            router.push({ name: 'view-post', params: { postId: database.id } })
           })
         })
         .catch(() => (loading.value = false))

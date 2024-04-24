@@ -21,6 +21,13 @@ export const useBlogStore = defineStore('blogStore', () => {
     blog.blogPhotoFileURL = URL.createObjectURL(file)
   }
 
+  function cleanCreatePost() {
+    blog.blogHTML = 'Write your blog title here...'
+    blog.blogTitle = ''
+    blog.blogPhotoFileURL = undefined
+    blog.blogPhotoName = ''
+  }
+
   async function getPostsFromDb() {
     const querySnapshot = await getDocs(collection(db, 'posts'))
     querySnapshot.forEach((doc) => {
@@ -43,6 +50,7 @@ export const useBlogStore = defineStore('blogStore', () => {
     blog,
     postLoaded,
     uploadFile,
-    getPostsFromDb
+    getPostsFromDb,
+    cleanCreatePost
   }
 })
