@@ -3,7 +3,7 @@ import BlogCard from '../components/BlogCard.vue'
 import { computed } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
 import { onBeforeUnmount } from 'vue'
-import { useBlogStore } from '@/stores/BlogStore'
+import { useBlogStore } from '../stores/BlogStore'
 
 const postsStore = usePostsStore()
 const blogStore = useBlogStore()
@@ -11,7 +11,7 @@ const blogStore = useBlogStore()
 //   return postsStore.sampleBlogCards
 // })
 const blogPostsCards = computed(() => {
-  return blogStore.blog.blogPosts.slice(2, 6)
+  return blogStore.blog.blogPosts
 })
 
 const editPost = computed({

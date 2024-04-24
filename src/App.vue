@@ -28,7 +28,6 @@ onMounted(() => {
       userStore.getCurrentUser()
     }
   })
-  console.log('app was mounted')
   getPostsFromDb()
 })
 

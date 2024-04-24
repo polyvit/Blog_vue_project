@@ -1,8 +1,8 @@
-import type { IBlog } from '../types'
+import type { IBlog, IBlogPost } from '../types'
 import { defineStore } from 'pinia'
 import { ref, reactive, computed } from 'vue'
 import { db } from '../firebase/firebaseInit'
-import { doc, getDoc, getDocs, collection, query, orderBy } from 'firebase/firestore'
+import { doc, deleteDoc, getDocs, collection, query, orderBy } from 'firebase/firestore'
 
 export const useBlogStore = defineStore('blogStore', () => {
   const blog = reactive<IBlog>({
@@ -28,13 +28,12 @@ export const useBlogStore = defineStore('blogStore', () => {
     blog.blogPhotoName = ''
   }
 
-  const blogPostsFeed = computed(() => {
-    return blog.blogPosts.slice(0, 2)
-  })
-
-  const blogPostsCards = computed(() => {
-    return blog.blogPosts.slice(2, 6)
-  })
+  function setBlogState(post: IBlogPost) {
+    blog.blogTitle = post?.blogTitle
+    blog.blogHTML = post?.blogHTML
+    blog.blogPhotoFileURL = post?.blogCoverPhoto
+    blog.blogPhotoName = post?.blogCoverPhotoName
+  }
 
   async function getPostsFromDb() {
     const querySnapshot = await getDocs(collection(db, 'posts'))
@@ -51,8 +50,17 @@ export const useBlogStore = defineStore('blogStore', () => {
         blog.blogPosts.push(data)
       }
       postLoaded.value = true
-      console.log('getPostsFromDb')
     })
+  }
+
+  async function deletePost(id: string) {
+    await deleteDoc(doc(db, 'posts', id))
+    blog.blogPosts = blog.blogPosts.filter((post) => post.blogId !== id)
+  }
+
+  async function updatePost(id: string) {
+    blog.blogPosts = blog.blogPosts.filter((post) => post.blogId !== id)
+    await getPostsFromDb()
   }
 
   return {
@@ -61,7 +69,8 @@ export const useBlogStore = defineStore('blogStore', () => {
     uploadFile,
     getPostsFromDb,
     cleanCreatePost,
-    blogPostsFeed,
-    blogPostsCards
+    deletePost,
+    setBlogState,
+    updatePost
   }
 })

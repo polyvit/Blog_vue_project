@@ -11,14 +11,20 @@ const {
 const route = useRoute()
 
 const currentBlog = ref([])
+const routeId = ref('')
 
 onMounted(() => {
-  watch(blogPosts, () => {
-    // @ts-ignore
-    currentBlog.value = blogPosts.filter((post) => {
-      return post.blogId === route.params.postId
-    })
+  routeId.value = route.params.postId as string
+  // @ts-ignore
+  currentBlog.value = blogPosts.filter((post) => {
+    return post.blogId === routeId.value
   })
+  // watch(blogPosts, () => {
+  //   // @ts-ignore
+  //   currentBlog.value = blogPosts.filter((post) => {
+  //     return post.blogId === routeId.value
+  //   })
+  // })
 })
 </script>
 

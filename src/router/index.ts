@@ -8,6 +8,7 @@ import ProfileView from '../views/ProfileView.vue'
 import CreatePostView from '../views/CreatePostView.vue'
 import PostPreview from '../views/PostPreview.vue'
 import PostView from '../views/PostView.vue'
+import EditView from '../views/EditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +83,14 @@ const router = createRouter({
       component: PostView,
       meta: {
         title: 'Post'
+      }
+    },
+    {
+      path: '/edit-post/:postId',
+      name: 'edit-post',
+      component: EditView,
+      meta: {
+        title: 'Edit Post'
       }
     }
   ]

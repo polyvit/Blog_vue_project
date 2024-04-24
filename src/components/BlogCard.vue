@@ -5,25 +5,37 @@ import IconArrowRight from '../components/icons/IconArrorRight.vue'
 import IconEdit from './icons/IconEdit.vue'
 import IconDelete from './icons/IconDelete.vue'
 import { usePostsStore } from '../stores/PostsStore'
+import { useBlogStore } from '../stores/BlogStore'
+import { useRouter } from 'vue-router'
 
 const postsStore = usePostsStore()
+const blogStore = useBlogStore()
 
-defineProps<{
+const router = useRouter()
+
+const props = defineProps<{
   post: IBlogPost
 }>()
 
 const editPost = computed(() => {
   return postsStore.editPost
 })
+
+const deletePostHandler = () => {
+  blogStore.deletePost(props.post.blogId)
+}
+const editPostHandler = () => {
+  router.push({ name: 'edit-post', params: { postId: props.post.blogId } })
+}
 </script>
 
 <template>
   <div class="blog-card">
     <div v-show="editPost" class="icons">
-      <div class="icon">
+      <div @click="editPostHandler" class="icon">
         <IconEdit class="edit" />
       </div>
-      <div class="icon">
+      <div @click="deletePostHandler" class="icon">
         <IconDelete class="delete" />
       </div>
     </div>

@@ -7,13 +7,14 @@ window.Quill = Quill
 import ImageResize from 'quill-image-resize-module--fix-imports-error'
 import { computed, reactive, ref } from 'vue'
 import { getStorage, ref as firebaseRef, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, setDoc, collection } from 'firebase/firestore'
+import { doc, setDoc, collection, updateDoc } from 'firebase/firestore'
 import Loader from '../components/Loader.vue'
 import PhotoPreview from '../components/PhotoPreview.vue'
 import { useBlogStore } from '../stores/BlogStore'
 import { useUserStore } from '../stores/UserStore'
 import { db } from '../firebase/firebaseInit'
 import { useRouter } from 'vue-router'
+import { defineProps } from 'vue'
 
 const editorSettings = reactive({
   editorSettings: {
@@ -23,6 +24,11 @@ const editorSettings = reactive({
   }
 })
 Quill.register('modules/imageResize', ImageResize)
+
+const props = defineProps<{
+  routeId?: string
+  editing?: boolean
+}>()
 
 const router = useRouter()
 
@@ -120,6 +126,25 @@ const publishPost = () => {
   }
   showError("The title and main content can't be empty")
 }
+const editPost = async () => {
+  const database = doc(collection(db, 'posts'), props.routeId)
+  if (blogTitle.value.length !== 0 && blogHTML.value.length !== 0) {
+    if (inputFile.value) {
+      return
+    }
+    loading.value = true
+    await updateDoc(database, {
+      blogHTML: blogHTML.value,
+      blogTitle: blogTitle.value
+    })
+    await blogStore.updatePost(props.routeId as string)
+    loading.value = false
+    router.push({ name: 'view-post', params: { postId: database.id } })
+    return
+  }
+  showError("The title and main content can't be empty")
+  return
+}
 </script>
 
 <template>
@@ -162,7 +187,8 @@ const publishPost = () => {
         />
       </div>
       <div class="actions">
-        <button @click="publishPost">Publish</button>
+        <button v-if="editing" @click="editPost">Edit</button>
+        <button v-else @click="publishPost">Publish</button>
         <RouterLink :to="{ name: 'preview' }" class="router-button">Post Preview</RouterLink>
       </div>
     </div>
@@ -296,7 +322,7 @@ const publishPost = () => {
     }
   }
 
-  .blog-actions {
+  .actions {
     button {
       margin-right: 16px;
     }
