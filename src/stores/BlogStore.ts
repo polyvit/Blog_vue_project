@@ -51,6 +51,7 @@ export const useBlogStore = defineStore('blogStore', () => {
         blog.blogPosts.push(data)
       }
       postLoaded.value = true
+      console.log('getPostsFromDb')
     })
   }
 

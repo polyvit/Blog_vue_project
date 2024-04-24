@@ -5,8 +5,7 @@ import PostLayout from '../components/PostLayout.vue'
 import { useRoute } from 'vue-router'
 
 const {
-  blog: { blogPosts },
-  getPostsFromDb
+  blog: { blogPosts }
 } = useBlogStore()
 
 const route = useRoute()
@@ -14,9 +13,11 @@ const route = useRoute()
 const currentBlog = ref([])
 
 onMounted(() => {
-  // @ts-ignore
-  currentBlog.value = blogPosts.filter((post) => {
-    return post.blogId === route.params.postId
+  watch(blogPosts, () => {
+    // @ts-ignore
+    currentBlog.value = blogPosts.filter((post) => {
+      return post.blogId === route.params.postId
+    })
   })
 })
 </script>
