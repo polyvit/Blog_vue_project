@@ -9,6 +9,7 @@ import CreatePostView from '../views/CreatePostView.vue'
 import PostPreview from '../views/PostPreview.vue'
 import PostView from '../views/PostView.vue'
 import EditView from '../views/EditView.vue'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,7 +19,8 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        title: 'Home'
+        title: 'Home',
+        requiresAuth: false
       }
     },
     {
@@ -26,7 +28,8 @@ const router = createRouter({
       name: 'blogs',
       component: BlogsView,
       meta: {
-        title: 'Blogs'
+        title: 'Blogs',
+        requiresAuth: false
       }
     },
     {
@@ -34,7 +37,8 @@ const router = createRouter({
       name: 'login',
       component: LoginView,
       meta: {
-        title: 'Login'
+        title: 'Login',
+        requiresAuth: false
       }
     },
     {
@@ -42,7 +46,8 @@ const router = createRouter({
       name: 'register',
       component: RegisterView,
       meta: {
-        title: 'Registration'
+        title: 'Registration',
+        requiresAuth: false
       }
     },
     {
@@ -50,7 +55,8 @@ const router = createRouter({
       name: 'reset-password',
       component: ResetPasswordView,
       meta: {
-        title: 'Reset Password'
+        title: 'Reset Password',
+        requiresAuth: false
       }
     },
     {
@@ -58,7 +64,8 @@ const router = createRouter({
       name: 'profile',
       component: ProfileView,
       meta: {
-        title: 'Profile'
+        title: 'Profile',
+        requiresAuth: true
       }
     },
     {
@@ -66,7 +73,8 @@ const router = createRouter({
       name: 'create-post',
       component: CreatePostView,
       meta: {
-        title: 'Create Post'
+        title: 'Create Post',
+        requiresAuth: true
       }
     },
     {
@@ -74,7 +82,8 @@ const router = createRouter({
       name: 'preview',
       component: PostPreview,
       meta: {
-        title: 'Post Preview'
+        title: 'Post Preview',
+        requiresAuth: true
       }
     },
     {
@@ -82,7 +91,8 @@ const router = createRouter({
       name: 'view-post',
       component: PostView,
       meta: {
-        title: 'Post'
+        title: 'Post',
+        requiresAuth: false
       }
     },
     {
@@ -90,7 +100,8 @@ const router = createRouter({
       name: 'edit-post',
       component: EditView,
       meta: {
-        title: 'Edit Post'
+        title: 'Edit Post',
+        requiresAuth: true
       }
     }
   ]
@@ -99,6 +110,28 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
   document.title = `${to.meta.title} | MyBlog`
   next()
+})
+
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        resolve(user)
+      } else {
+        reject('Undefined')
+      }
+    })
+  })
+}
+
+router.beforeEach(async (to, _, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    await getCurrentUser()
+      .then(() => next())
+      .catch(() => next('/login'))
+  } else {
+    next()
+  }
 })
 
 export default router
