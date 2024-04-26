@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { IBlog, IBlogPost } from '../types'
-import { defineProps, watch } from 'vue'
+import type { IBlogPost } from '../types'
+import { defineProps } from 'vue'
 
-const props = defineProps<{
-  blog: IBlog & IBlogPost
+defineProps<{
+  blog: IBlogPost
 }>()
 </script>
 

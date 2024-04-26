@@ -12,6 +12,9 @@ Stack:
 - TypeScript
 - Vue3
 - Pinia
+- Vue3 editor
+- Quill
+- Firebase
 
 Tasks:
 

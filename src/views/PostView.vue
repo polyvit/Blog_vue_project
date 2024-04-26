@@ -3,6 +3,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useBlogStore } from '../stores/BlogStore'
 import PostLayout from '../components/PostLayout.vue'
 import { useRoute } from 'vue-router'
+import type { IBlogPost } from '../types'
 
 const {
   blog: { blogPosts }
@@ -10,21 +11,14 @@ const {
 
 const route = useRoute()
 
-const currentBlog = ref([])
+const currentBlog = ref<IBlogPost[]>([])
 const routeId = ref('')
 
 onMounted(() => {
   routeId.value = route.params.postId as string
-  // @ts-ignore
   currentBlog.value = blogPosts.filter((post) => {
     return post.blogId === routeId.value
   })
-  // watch(blogPosts, () => {
-  //   // @ts-ignore
-  //   currentBlog.value = blogPosts.filter((post) => {
-  //     return post.blogId === routeId.value
-  //   })
-  // })
 })
 </script>
 

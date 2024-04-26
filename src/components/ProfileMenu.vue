@@ -20,7 +20,6 @@ const signOutHandler = () => {
   const auth = getAuth()
   signOut(auth).then(() => {
     router.push({ name: 'login' })
-    // window.location.reload()
   })
 }
 </script>
@@ -44,12 +43,6 @@ const signOutHandler = () => {
             <p>Profile</p>
           </RouterLink>
         </div>
-        <!-- <div class="option">
-          <RouterLink class="option" :to="{ name: 'admin' }">
-            <IconAdmin class="icon" />
-            <p>Admin</p>
-          </RouterLink>
-        </div> -->
         <div @click="signOutHandler" class="option">
           <IconSignOut class="icon" />
           <p>Sign Out</p>

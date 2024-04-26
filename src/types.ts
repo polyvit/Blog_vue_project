@@ -1,7 +1,8 @@
-import type { StringLiteralLike } from 'typescript'
-
 export interface IPost {
-  welcomeScreen?: boolean
+  title: string
+  post: string
+  welcomeScreen: boolean
+  photo: string
 }
 
 export interface IBlogCard {
@@ -41,4 +42,5 @@ export interface IBlogPost {
   blogId: string
   blogTitle: string
   date: Date
+  blogPhotoFileURL?: undefined | string
 }

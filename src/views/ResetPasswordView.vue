@@ -6,8 +6,6 @@ import Loader from '../components/Loader.vue'
 import IconEnvelope from '../components/icons/IconEnvelope.vue'
 import { ref } from 'vue'
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
-import { collection, doc, setDoc } from 'firebase/firestore'
-import { db } from '../firebase/firebaseInit'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

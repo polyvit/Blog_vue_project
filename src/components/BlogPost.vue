@@ -7,19 +7,18 @@ import { useUserStore } from '../stores/UserStore'
 
 const authUser = computed(() => useUserStore().user)
 
-const props = defineProps<{
-  post: IBlogPost & IPost
+defineProps<{
+  post: Partial<IBlogPost & IPost>
 }>()
-watch(props, () => console.log(props.post))
 </script>
 
 <template>
   <div class="blog-wrapper" :class="{ 'no-user': !authUser }">
     <div class="blog-content">
       <div>
-        <h2 v-if="post.welcomeScreen">{{ post.blogTitle }}</h2>
+        <h2 v-if="post.welcomeScreen">{{ post.title }}</h2>
         <h2 v-else>{{ post.blogTitle }}</h2>
-        <p v-if="post.welcomeScreen">{{ post.blogHTML }}</p>
+        <p v-if="post.welcomeScreen">{{ post.post }}</p>
         <p class="content-preview" v-else v-html="post.blogHTML"></p>
         <RouterLink v-if="post.welcomeScreen" :to="{ name: 'login' }" class="link link-light"
           >Login/Register<IconArrowRight class="arrow arrow-light"
@@ -30,11 +29,7 @@ watch(props, () => console.log(props.post))
       </div>
     </div>
     <div class="blog-photo">
-      <img
-        v-if="post.welcomeScreen"
-        :src="getImageUrl(post.blogCoverPhoto, 'blogPhotos')"
-        alt="photo"
-      />
+      <img v-if="post.welcomeScreen" :src="getImageUrl(post.photo, 'blogPhotos')" alt="photo" />
       <img v-else :src="post.blogCoverPhoto" alt="photo" />
     </div>
   </div>

@@ -79,8 +79,12 @@ const uploadFileHandler = () => {
 const togglePhotoPreview = () => {
   blogStore.blog.blogPhotoPreview = !blogStore.blog.blogPhotoPreview
 }
-//@ts-ignore
-const imageAddedHandler = (file, Editor, cursorLocation, resetUploader) => {
+const imageAddedHandler = (
+  file: File,
+  Editor: typeof Quill,
+  cursorLocation: number,
+  resetUploader: () => void
+) => {
   const storage = getStorage()
   const docRef = firebaseRef(storage, `documents/blogPostPhotos/${file.name}`)
   uploadBytes(docRef, file).then(() => {
@@ -130,6 +134,27 @@ const editPost = async () => {
   const database = doc(collection(db, 'posts'), props.routeId)
   if (blogTitle.value.length !== 0 && blogHTML.value.length !== 0) {
     if (inputFile.value) {
+      loading.value = true
+      const storage = getStorage()
+      const docRef = firebaseRef(
+        storage,
+        `documents/blogCoverPhotos/${blogStore.blog.blogPhotoName}`
+      )
+      uploadBytes(docRef, inputFile.value)
+        .then(() => {
+          getDownloadURL(docRef).then(async (url) => {
+            await updateDoc(database, {
+              blogHTML: blogHTML.value,
+              blogCoverPhoto: url,
+              blogCoverPhotoName: blogCoverPhotoName.value,
+              blogTitle: blogTitle.value
+            })
+            await blogStore.updatePost(props.routeId as string)
+            loading.value = false
+            router.push({ name: 'view-post', params: { postId: database.id } })
+          })
+        })
+        .catch(() => (loading.value = false))
       return
     }
     loading.value = true

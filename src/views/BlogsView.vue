@@ -7,9 +7,6 @@ import { useBlogStore } from '../stores/BlogStore'
 
 const postsStore = usePostsStore()
 const blogStore = useBlogStore()
-// const sampleBlogCards = computed(() => {
-//   return postsStore.sampleBlogCards
-// })
 const blogPostsCards = computed(() => {
   return blogStore.blog.blogPosts
 })

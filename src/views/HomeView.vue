@@ -5,32 +5,17 @@ import BlogCard from '../components/BlogCard.vue'
 import Updates from '../components/Updates.vue'
 import { useUserStore } from '../stores/UserStore'
 import { useBlogStore } from '../stores/BlogStore'
+import type { IPost } from '../types'
 
 const blogStore = useBlogStore()
 const authUser = computed(() => useUserStore().user)
 
-const welcomeScreen = reactive({
-  blogTitle: 'Welcome!',
-  blogHTML:
-    'Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!',
+const welcomeScreen = reactive<IPost>({
+  title: 'Welcome!',
+  post: 'Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!',
   welcomeScreen: true,
-  blogCoverPhoto: 'coding',
-  blogCoverPhotoName: 'coding',
-  blogId: '',
-  date: new Date()
+  photo: 'coding'
 })
-// const sampleBlogPost = reactive([
-//   {
-//     title: 'This is a filler title',
-//     blogHTML: 'This is a filler blog post title',
-//     blogCoverPhoto: 'beautiful-stories'
-//   },
-//   {
-//     title: 'This is a filler title',
-//     blogHTML: 'This is a filler blog post title',
-//     blogCoverPhoto: 'designed-for-everyone'
-//   }
-// ])
 const blogPostsFeed = computed(() => {
   return blogStore.blog.blogPosts.slice(0, 2)
 })
