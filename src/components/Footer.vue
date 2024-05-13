@@ -36,7 +36,9 @@ const authUser = computed(() => useUserStore().user)
           <ul>
             <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
             <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
-            <RouterLink class="link" :to="{ name: 'create-post' }">Create Post</RouterLink>
+            <RouterLink v-if="authUser" class="link" :to="{ name: 'create-post' }"
+              >Create Post</RouterLink
+            >
             <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
               >Log In / Register</RouterLink
             >

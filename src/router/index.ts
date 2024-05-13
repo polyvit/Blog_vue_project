@@ -10,6 +10,7 @@ import PostPreview from '../views/PostPreview.vue'
 import PostView from '../views/PostView.vue'
 import EditView from '../views/EditView.vue'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -102,6 +103,15 @@ const router = createRouter({
       meta: {
         title: 'Edit Post',
         requiresAuth: true
+      }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundView,
+      meta: {
+        title: 'Not Found',
+        requiresAuth: false
       }
     }
   ]

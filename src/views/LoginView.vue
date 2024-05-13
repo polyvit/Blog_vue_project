@@ -60,9 +60,9 @@ const login = () => {
     const res = signInWithEmailAndPassword(auth, formData.email, formData.password)
     res
       .then(() => {
-        router.push({ name: 'home' })
         error.value = false
         errorMsg.value = ''
+        router.push({ name: 'home' })
       })
       .catch((err) => {
         console.log('err', err)

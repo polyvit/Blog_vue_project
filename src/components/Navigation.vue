@@ -42,7 +42,9 @@ onMounted(() => {
         <ul v-show="!mobile">
           <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
           <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
-          <RouterLink class="link" :to="{ name: 'create-post' }">Create Post</RouterLink>
+          <RouterLink v-if="authUser" class="link" :to="{ name: 'create-post' }"
+            >Create Post</RouterLink
+          >
           <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
             >Login/Register</RouterLink
           >
@@ -55,8 +57,12 @@ onMounted(() => {
       <ul v-show="mobileNav">
         <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
         <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
-        <RouterLink class="link" :to="{ name: 'create-post' }">Create Post</RouterLink>
-        <RouterLink class="link" :to="{ name: 'login' }">Login/Register</RouterLink>
+        <RouterLink v-if="authUser" class="link" :to="{ name: 'create-post' }"
+          >Create Post</RouterLink
+        >
+        <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
+          >Log in/Register</RouterLink
+        >
       </ul>
     </transition>
   </header>
