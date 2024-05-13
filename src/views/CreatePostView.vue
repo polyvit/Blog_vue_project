@@ -1,10 +1,12 @@
 <script setup lang="ts">
-//@ts-ignore
 import { VueEditor, Quill } from 'vue3-editor'
 //@ts-ignore
 window.Quill = Quill
 //@ts-ignore
-import ImageResize from 'quill-image-resize-module--fix-imports-error'
+// import ImageResize from 'quill-image-resize-module--fix-imports-error'
+import QuillResizeImage from 'quill-resize-image'
+//@ts-ignore
+window.QuillResizeImage = QuillResizeImage
 import { computed, reactive, ref } from 'vue'
 import { getStorage, ref as firebaseRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, setDoc, collection, updateDoc } from 'firebase/firestore'
@@ -19,11 +21,16 @@ import { defineProps } from 'vue'
 const editorSettings = reactive({
   editorSettings: {
     modules: {
-      imageResize: {}
+      // ImageResize: {}
+      resize: {
+        locale: {}
+      }
     }
   }
 })
-Quill.register('modules/imageResize', ImageResize)
+
+// Quill.register('modules/imageResize', ImageResize)
+Quill.register('modules/resize', window.QuillResizeImage)
 
 const props = defineProps<{
   routeId?: string

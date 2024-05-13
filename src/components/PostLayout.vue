@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { IBlogPost } from '../types'
+import type { IBlog, IBlogPost } from '../types'
 import { defineProps } from 'vue'
 
 defineProps<{
-  blog: IBlogPost
+  blog: Partial<IBlogPost & IBlog>
 }>()
 </script>
 

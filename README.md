@@ -18,9 +18,10 @@ Stack:
 
 Tasks:
 
-[] - separate ui elements and make ui kit (button, input)
+[x] - separate ui elements and make ui kit (button, input)
 [] - change layout design
-[] - add validation
+[x] - add validation
 [] - add JWT
-[] - type lib quill-image-resize-module
-[] - delete ts ignore from store
+[-] - type lib quill-image-resize-module
+[x] - delete ts ignore from store
+[] - no content without reloading after loging in and signing out
