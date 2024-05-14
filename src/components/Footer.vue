@@ -11,42 +11,38 @@ const authUser = computed(() => useUserStore().user)
 <template>
   <footer>
     <div class="container">
-      <div class="left">
-        <div class="col-1">
-          <RouterLink class="header" :to="{ name: 'home' }">DishonestBlog</RouterLink>
-          <ul>
-            <li>
-              <a href="#">
-                <IconInstagram class="svg-icon" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <IconTwitter class="svg-icon" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <IconYoutube class="svg-icon" />
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-2">
-          <ul>
-            <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
-            <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
-            <RouterLink v-if="authUser" class="link" :to="{ name: 'create-post' }"
-              >Create Post</RouterLink
-            >
-            <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
-              >Log In / Register</RouterLink
-            >
-          </ul>
-        </div>
+      <div class="top">
+        <RouterLink class="header" :to="{ name: 'home' }">DishonestBlog</RouterLink>
+        <ul>
+          <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
+          <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
+          <RouterLink v-if="authUser" class="link" :to="{ name: 'create-post' }"
+            >Create Post</RouterLink
+          >
+          <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
+            >Log In / Register</RouterLink
+          >
+        </ul>
       </div>
-      <div class="right">
-        <p>Copyright 2024 All rights reserved</p>
+      <div class="bottom">
+        <p>polina98_08@mail.ru</p>
+        <ul>
+          <li>
+            <a href="#">
+              <IconInstagram class="svg-icon" />
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <IconTwitter class="svg-icon" />
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <IconYoutube class="svg-icon" />
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </footer>
@@ -57,15 +53,15 @@ $dark-color: #232536;
 
 footer {
   margin-top: auto;
-  padding: 100px 25px;
+  padding: 50px 25px;
   background-color: $dark-color;
   .container {
     display: flex;
     flex-direction: column;
     gap: 32px;
     @media (min-width: 800px) {
-      flex-direction: row;
-      gap: 0px;
+      flex-direction: column;
+      gap: 32px;
     }
 
     > div {
@@ -73,7 +69,7 @@ footer {
       flex: 1;
     }
 
-    .left {
+    .top {
       gap: 32px;
       color: #fff;
       display: flex;
@@ -81,15 +77,12 @@ footer {
       align-items: center;
       @media (min-width: 800px) {
         flex-direction: row;
-        align-items: initial;
-        gap: 0;
+        justify-content: space-between;
       }
 
       .header {
-        text-align: center;
         font-size: 24px;
         color: #fff;
-        margin-bottom: 16px;
         text-decoration: none;
         font-weight: 600;
         @media (min-width: 800px) {
@@ -100,74 +93,97 @@ footer {
         gap: 16px;
         list-style: none;
         display: flex;
+        height: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        .link {
+          font-size: 16px;
+          font-weight: 500;
+          color: #fff;
+          text-decoration: none;
+        }
+        // ul {
+        //   height: 100%;
+        //   justify-content: center;
+        //   flex-direction: row;
+        //   flex-wrap: wrap;
+        //   @media (min-width: 800px) {
+        //     flex-direction: column;
+        //   }
+        //   .link {
+        //     font-size: 16px;
+        //     font-weight: 500;
+        //     color: #fff;
+        //     text-decoration: none;
+        //   }
+        // }
       }
 
-      .col-1,
-      .col-2 {
-        gap: 32px;
-        display: flex;
-        flex: 1;
-        @media (min-width: 800px) {
-          gap: 0;
-        }
-      }
+      // .col-1,
+      // .col-2 {
+      //   gap: 32px;
+      //   display: flex;
+      //   flex: 1;
+      //   @media (min-width: 800px) {
+      //     gap: 0;
+      //   }
+      // }
 
-      .col-1 {
-        flex-direction: column;
+      // .col-1 {
+      //   flex-direction: column;
 
-        h2 {
-          text-align: center;
-          @media (min-width: 800px) {
-            text-align: initial;
-          }
-        }
-        ul {
-          margin-top: auto;
+      //   h2 {
+      //     text-align: center;
+      //     @media (min-width: 800px) {
+      //       text-align: initial;
+      //     }
+      //   }
+      // }
 
-          li {
-            display: flex;
-            align-items: center;
-            .svg-icon {
-              width: 24px;
-              height: auto;
-              color: #fff;
-            }
-          }
-        }
-      }
-
-      .col-2 {
-        ul {
-          height: 100%;
-          justify-content: center;
-          flex-direction: row;
-          flex-wrap: wrap;
-          @media (min-width: 800px) {
-            flex-direction: column;
-          }
-          .link {
-            font-size: 16px;
-            font-weight: 500;
-            color: #fff;
-            text-decoration: none;
-          }
-        }
-      }
+      // .top {
+      //   ul {
+      //     height: 100%;
+      //     justify-content: center;
+      //     flex-direction: row;
+      //     flex-wrap: wrap;
+      //     @media (min-width: 800px) {
+      //       flex-direction: column;
+      //     }
+      //     .link {
+      //       font-size: 16px;
+      //       font-weight: 500;
+      //       color: #fff;
+      //       text-decoration: none;
+      //     }
+      //   }
+      // }
     }
 
-    .right {
+    .bottom {
       gap: 32px;
       color: #fff;
       align-items: center;
       flex-direction: column;
       @media (min-width: 800px) {
-        align-items: flex-end;
-        gap: 0;
+        flex-direction: row;
+        justify-content: space-between;
       }
-    }
 
-    p {
-      margin-top: auto;
+      ul {
+        gap: 16px;
+        list-style: none;
+        display: flex;
+
+        li {
+          display: flex;
+          align-items: center;
+          .svg-icon {
+            width: 24px;
+            height: auto;
+            color: #fff;
+          }
+        }
+      }
     }
   }
 }
