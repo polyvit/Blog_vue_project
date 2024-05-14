@@ -38,6 +38,9 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
+$dark-color: #232536;
+$dark-light-color: #474961;
+
 .blog-cards {
   position: relative;
 
@@ -75,7 +78,7 @@ onBeforeUnmount(() => {
       border-radius: 20px;
       top: 0;
       left: 0;
-      background: #303030;
+      background: $dark-light-color;
       transform: scale(1.1);
       transition: 750ms ease all;
       box-shadow:
@@ -84,7 +87,8 @@ onBeforeUnmount(() => {
     }
 
     input:checked[type='checkbox']:before {
-      background: #fff;
+      // background: #fff;
+      background: $dark-color;
       left: 52px;
     }
   }

@@ -88,7 +88,7 @@ watch(route, () => checkRoute())
   }
 }
 
-button,
+// button,
 .router-button {
   transition: 500ms ease all;
   cursor: pointer;
@@ -107,6 +107,11 @@ button,
   &:hover {
     background-color: rgba(48, 48, 48, 0.7);
   }
+}
+
+.btn_icon {
+  height: 20px;
+  width: 20px;
 }
 
 .button-ghost {

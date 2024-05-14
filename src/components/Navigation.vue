@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import IconMenuBurger from './icons/IconMenuBurger.vue'
 import ProfileMenu from './ProfileMenu.vue'
+import Button from '../kit/Button.vue'
+import IconEnvelope from '../components/icons/IconEnvelope.vue'
 import { computed, ref } from 'vue'
 import { onMounted } from 'vue'
 import { useUserStore } from '../stores/UserStore'
@@ -48,10 +50,14 @@ onMounted(() => {
           <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
             >Login/Register</RouterLink
           >
+          <Button v-if="!authUser" color="white">
+            <RouterLink class="btn_link" :to="{ name: 'login' }">Login/Register</RouterLink>
+          </Button>
         </ul>
         <ProfileMenu v-if="authUser" />
       </div>
     </nav>
+    <!-- Mobile menu starts -->
     <IconMenuBurger @click="toggleMobileNav" class="menu-icon" v-show="mobile" />
     <transition name="mobile-nav" class="mobile-nav">
       <ul v-show="mobileNav">
@@ -69,8 +75,13 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+$dark-color: #232536;
+$white-color: white;
+$pink-button: #ff5959;
+$black-color: black;
+
 header {
-  background-color: #fff;
+  background-color: $dark-color;
   padding: 0 25px;
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -81,9 +92,20 @@ header {
     font-weight: 500;
     padding: 0 8px;
     transition: 0.3s color ease;
+    color: $white-color;
 
     &:hover {
-      color: #1eb8b8;
+      color: $pink-button;
+    }
+    &:visited {
+      color: $white-color;
+    }
+  }
+  .btn_link {
+    color: $black-color;
+    text-decoration: none;
+    &:visited {
+      color: $black-color;
     }
   }
 
@@ -98,8 +120,8 @@ header {
       .header {
         font-weight: 300;
         font-size: 24px;
-        color: #000;
         text-decoration: none;
+        color: $white-color;
       }
     }
     .nav-links {
@@ -141,7 +163,7 @@ header {
 
     .link {
       padding: 15px 0;
-      color: #fff;
+      color: $white-color;
     }
   }
 

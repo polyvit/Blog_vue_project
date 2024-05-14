@@ -53,10 +53,12 @@ const authUser = computed(() => useUserStore().user)
 </template>
 
 <style lang="scss" scoped>
+$dark-color: #232536;
+
 footer {
   margin-top: auto;
   padding: 100px 25px;
-  background-color: #303030;
+  background-color: $dark-color;
   .container {
     display: flex;
     flex-direction: column;
