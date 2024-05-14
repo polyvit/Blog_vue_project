@@ -66,19 +66,19 @@ footer {
 
     > div {
       display: flex;
+      flex-direction: column;
+      align-items: center;
       flex: 1;
+      @media (min-width: 800px) {
+        flex-direction: row;
+        justify-content: space-between;
+      }
     }
 
     .top {
       gap: 32px;
       color: #fff;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      @media (min-width: 800px) {
-        flex-direction: row;
-        justify-content: space-between;
-      }
 
       .header {
         font-size: 24px;
@@ -102,72 +102,12 @@ footer {
           color: #fff;
           text-decoration: none;
         }
-        // ul {
-        //   height: 100%;
-        //   justify-content: center;
-        //   flex-direction: row;
-        //   flex-wrap: wrap;
-        //   @media (min-width: 800px) {
-        //     flex-direction: column;
-        //   }
-        //   .link {
-        //     font-size: 16px;
-        //     font-weight: 500;
-        //     color: #fff;
-        //     text-decoration: none;
-        //   }
-        // }
       }
-
-      // .col-1,
-      // .col-2 {
-      //   gap: 32px;
-      //   display: flex;
-      //   flex: 1;
-      //   @media (min-width: 800px) {
-      //     gap: 0;
-      //   }
-      // }
-
-      // .col-1 {
-      //   flex-direction: column;
-
-      //   h2 {
-      //     text-align: center;
-      //     @media (min-width: 800px) {
-      //       text-align: initial;
-      //     }
-      //   }
-      // }
-
-      // .top {
-      //   ul {
-      //     height: 100%;
-      //     justify-content: center;
-      //     flex-direction: row;
-      //     flex-wrap: wrap;
-      //     @media (min-width: 800px) {
-      //       flex-direction: column;
-      //     }
-      //     .link {
-      //       font-size: 16px;
-      //       font-weight: 500;
-      //       color: #fff;
-      //       text-decoration: none;
-      //     }
-      //   }
-      // }
     }
 
     .bottom {
       gap: 32px;
       color: #fff;
-      align-items: center;
-      flex-direction: column;
-      @media (min-width: 800px) {
-        flex-direction: row;
-        justify-content: space-between;
-      }
 
       ul {
         gap: 16px;

@@ -69,6 +69,9 @@ onMounted(() => {
         <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
           >Log in/Register</RouterLink
         >
+        <Button v-if="!authUser" color="white">
+          <RouterLink class="btn_link" :to="{ name: 'login' }">Login/Register</RouterLink>
+        </Button>
       </ul>
     </transition>
   </header>
@@ -157,7 +160,7 @@ header {
     flex-direction: column;
     position: fixed;
     height: 100%;
-    background-color: #303030;
+    background-color: $dark-color;
     top: 0;
     left: 0;
 
