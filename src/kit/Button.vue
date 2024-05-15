@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 const props = defineProps({
   color: {
     type: String,
     default: 'red'
   }
 })
+const emit = defineEmits(['click'])
+
+const clickHandler = () => {
+  emit('click')
+}
 </script>
 
 <template>
-  <button :class="['btn', `btn_${color}`]">
+  <button @click="clickHandler" :class="['btn', `btn_${color}`]">
     <div class="container">
       <slot></slot>
     </div>

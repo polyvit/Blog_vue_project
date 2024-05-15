@@ -32,7 +32,10 @@ const blogPostsCards = computed(() => {
     <BlogPost :post="post" v-for="(post, index) in blogPostsFeed" :key="index" />
     <div class="blog-card-wrap">
       <div class="container">
-        <h3>View More Recent Blogs</h3>
+        <div class="top">
+          <h3>View More Recent Blogs</h3>
+          <RouterLink class="link" :to="{ name: 'blogs' }">See all</RouterLink>
+        </div>
         <div class="blog-cards">
           <BlogCard :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
         </div>
@@ -45,10 +48,15 @@ const blogPostsCards = computed(() => {
 
 <style lang="scss" scoped>
 .blog-card-wrap {
-  h3 {
-    font-weight: 300;
-    font-size: 28px;
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 32px;
+    h3 {
+      font-weight: bold;
+      font-size: 24px;
+    }
   }
 }
 </style>

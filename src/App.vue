@@ -154,7 +154,7 @@ watch(route, () => checkRoute())
 .blog-card-wrap {
   position: relative;
   padding: 80px 25px;
-  background-color: #f1f1f1;
+  background-color: white;
   @media (min-width: 700px) {
     padding: 100px 160px;
   }

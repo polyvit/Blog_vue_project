@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import BlogCard from '../components/BlogCard.vue'
+import BlogListItem from '../components/BlogListItem.vue'
 import { computed } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
 import { onBeforeUnmount } from 'vue'
 import { useBlogStore } from '../stores/BlogStore'
+import { useUserStore } from '../stores/UserStore'
 
 const postsStore = usePostsStore()
 const blogStore = useBlogStore()
+const authUser = computed(() => useUserStore().user)
 const blogPostsCards = computed(() => {
   return blogStore.blog.blogPosts
 })
@@ -27,13 +29,14 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="blog-card-wrap">
-    <div class="blog-cards container">
-      <div class="toggle-edit">
+    <div class="top">
+      <h3>All posts</h3>
+      <div v-if="authUser" class="toggle-edit">
         <span>Toggle to edit posts</span>
         <input type="checkbox" v-model="editPost" />
       </div>
-      <BlogCard :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
     </div>
+    <BlogListItem :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
   </div>
 </template>
 
@@ -41,15 +44,22 @@ onBeforeUnmount(() => {
 $dark-color: #232536;
 $dark-light-color: #474961;
 
-.blog-cards {
-  position: relative;
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #6d6e76;
+
+  h3 {
+    font-weight: bold;
+    font-size: 24px;
+  }
 
   .toggle-edit {
     display: flex;
     align-items: center;
-    position: absolute;
-    top: -70px;
-    right: 0;
 
     span {
       margin-right: 16px;
@@ -87,7 +97,6 @@ $dark-light-color: #474961;
     }
 
     input:checked[type='checkbox']:before {
-      // background: #fff;
       background: $dark-color;
       left: 52px;
     }
