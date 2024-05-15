@@ -10,9 +10,9 @@ defineProps<{
 <template>
   <div class="post-view">
     <div class="container quillWrapper">
+      <img :src="blog?.blogPhotoFileURL ?? blog?.blogCoverPhoto" alt="cover-photo" />
       <h2>{{ blog?.blogTitle }}</h2>
       <slot></slot>
-      <img :src="blog?.blogPhotoFileURL ?? blog?.blogCoverPhoto" alt="cover-photo" />
       <div class="post-content ql-editor" v-html="blog?.blogHTML"></div>
     </div>
   </div>
@@ -33,7 +33,7 @@ defineProps<{
 
   h2 {
     margin-bottom: 16px;
-    font-weight: 300;
+    font-weight: bold;
     font-size: 32px;
   }
 

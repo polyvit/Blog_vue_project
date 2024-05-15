@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue'
 import { useBlogStore } from '../stores/BlogStore'
 import PostLayout from '../components/PostLayout.vue'
+import BlogDetails from '../components/BlogDetails.vue'
 import { useRoute } from 'vue-router'
 import type { IBlogPost } from '../types'
 
@@ -24,16 +25,12 @@ onMounted(() => {
 
 <template>
   <PostLayout v-show="currentBlog[0]" :blog="currentBlog[0]">
-    <h4>
-      Posted on: {{ new Date(currentBlog[0]?.date).toLocaleString('en-us', { dateStyle: 'long' }) }}
-    </h4>
+    <BlogDetails :date="currentBlog[0]?.date" class="details" />
   </PostLayout>
 </template>
 
 <style lang="scss" scoped>
-h4 {
-  font-weight: 400;
-  font-size: 14px;
-  margin-bottom: 24px;
+.details {
+  margin-bottom: 20px;
 }
 </style>
