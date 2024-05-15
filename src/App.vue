@@ -113,6 +113,13 @@ watch(route, () => checkRoute())
   height: 20px;
   width: 20px;
 }
+.btn_link {
+  color: $black-color;
+  text-decoration: none;
+  &:visited {
+    color: $black-color;
+  }
+}
 
 .button-ghost {
   color: #000;

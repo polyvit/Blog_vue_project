@@ -3,6 +3,7 @@ import { reactive, computed } from 'vue'
 import BlogPost from '../components/BlogPost.vue'
 import BlogCard from '../components/BlogCard.vue'
 import Updates from '../components/Updates.vue'
+import Banner from '../components/Banner.vue'
 import Loader from '../components/Loader.vue'
 import { useUserStore } from '../stores/UserStore'
 import { useBlogStore } from '../stores/BlogStore'
@@ -22,14 +23,16 @@ const blogPostsFeed = computed(() => {
 })
 
 const blogPostsCards = computed(() => {
+  console.log(blogStore.blog.blogPosts)
   return blogStore.blog.blogPosts.slice(2, 6)
 })
 </script>
 
 <template>
   <div v-if="blogStore.blog.blogPosts.length" class="home">
-    <BlogPost v-if="!authUser" :post="welcomeScreen" />
-    <BlogPost :post="post" v-for="(post, index) in blogPostsFeed" :key="index" />
+    <Banner />
+    <!-- <BlogPost v-if="!authUser" :post="welcomeScreen" />
+    <BlogPost :post="post" v-for="(post, index) in blogPostsFeed" :key="index" /> -->
     <div class="blog-card-wrap">
       <div class="container">
         <div class="top">

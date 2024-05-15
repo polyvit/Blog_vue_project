@@ -34,6 +34,7 @@ $black-color: black;
   border: none;
   font-weight: bold;
   text-transform: uppercase;
+  max-width: max-content;
 
   .container {
     display: flex;
