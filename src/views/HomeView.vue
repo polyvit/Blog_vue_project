@@ -30,8 +30,6 @@ const blogPostsCards = computed(() => {
 <template>
   <div v-if="blogStore.blog.blogPosts.length" class="home">
     <Banner />
-    <!-- <BlogPost v-if="!authUser" :post="welcomeScreen" />
-    <BlogPost :post="post" v-for="(post, index) in blogPostsFeed" :key="index" /> -->
     <div class="blog-card-wrap">
       <div class="container">
         <div class="top">
@@ -43,7 +41,6 @@ const blogPostsCards = computed(() => {
         </div>
       </div>
     </div>
-    <!-- <Updates v-if="!authUser" /> -->
   </div>
   <Loader v-else />
 </template>

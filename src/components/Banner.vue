@@ -41,6 +41,9 @@ $white-color: white;
   padding: 20px 100px;
   display: flex;
   min-height: 540px;
+  @media (max-width: 950px) {
+    padding: 20px;
+  }
 
   > div {
     width: 50%;
@@ -52,6 +55,9 @@ $white-color: white;
     flex-direction: column;
     gap: 50px;
     justify-content: center;
+    @media (max-width: 630px) {
+      width: 100%;
+    }
     h1 {
       font-weight: bold;
       font-size: 60px;
@@ -69,6 +75,9 @@ $white-color: white;
   }
   .right {
     position: relative;
+    @media (max-width: 630px) {
+      display: none;
+    }
 
     img {
       position: absolute;
@@ -86,10 +95,16 @@ $white-color: white;
       top: 0;
       left: 201px;
       z-index: 4;
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
     .img_4 {
       top: 78px;
       left: 323px;
+      @media (max-width: 1049px) {
+        display: none;
+      }
     }
   }
 }

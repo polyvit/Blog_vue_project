@@ -257,6 +257,15 @@ const editPost = async () => {
     background-color: #303030;
     text-decoration: none;
 
+    @media (max-width: 913px) {
+      padding: 12px 18px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 598px) {
+      font-size: 10px;
+    }
+
     &:hover {
       background-color: rgba(48, 48, 48, 0.7);
     }
@@ -294,6 +303,11 @@ const editPost = async () => {
   .blog-info {
     display: flex;
     margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+    @media (max-width: 390px) {
+      flex-direction: column;
+    }
 
     input:nth-child(1) {
       min-width: 300px;
@@ -313,9 +327,13 @@ const editPost = async () => {
 
     .upload-file {
       flex: 1;
-      margin-left: 16px;
       position: relative;
       display: flex;
+
+      @media (max-width: 500px) {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
 
       input {
         display: none;
@@ -358,6 +376,10 @@ const editPost = async () => {
   }
 
   .actions {
+    @media (max-width: 380px) {
+      display: flex;
+      flex-direction: column;
+    }
     button {
       margin-right: 16px;
     }

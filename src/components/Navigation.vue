@@ -2,7 +2,6 @@
 import IconMenuBurger from './icons/IconMenuBurger.vue'
 import ProfileMenu from './ProfileMenu.vue'
 import Button from '../kit/Button.vue'
-import IconEnvelope from '../components/icons/IconEnvelope.vue'
 import { computed, ref } from 'vue'
 import { onMounted } from 'vue'
 import { useUserStore } from '../stores/UserStore'
@@ -55,10 +54,10 @@ onMounted(() => {
           </Button>
         </ul>
         <ProfileMenu v-if="authUser" />
+        <IconMenuBurger @click="toggleMobileNav" class="menu-icon" v-show="mobile" />
       </div>
     </nav>
     <!-- Mobile menu starts -->
-    <IconMenuBurger @click="toggleMobileNav" class="menu-icon" v-show="mobile" />
     <transition name="mobile-nav" class="mobile-nav">
       <ul v-show="mobileNav">
         <RouterLink class="link" :to="{ name: 'home' }">Home</RouterLink>
@@ -145,9 +144,7 @@ header {
 
   .menu-icon {
     cursor: pointer;
-    position: absolute;
-    top: 32px;
-    right: 25px;
+    margin-left: 20px;
     height: 25px;
     width: auto;
   }

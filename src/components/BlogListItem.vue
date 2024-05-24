@@ -73,6 +73,12 @@ $dark-color: #232536;
   background-color: $light-gray-color;
   border-radius: 10px;
 
+  @media (max-width: 860px) {
+    flex-direction: column;
+    height: auto;
+    width: auto;
+  }
+
   &:hover {
     transform: scale(1.05);
     box-shadow:
@@ -118,12 +124,21 @@ $dark-color: #232536;
     width: 380px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    @media (max-width: 860px) {
+      width: auto;
+      border-bottom-left-radius: 0px;
+      border-top-right-radius: 10px;
+    }
   }
   .info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px 0;
+    @media (max-width: 860px) {
+      align-items: center;
+      gap: 20px;
+    }
 
     h4 {
       margin-bottom: 25px;
