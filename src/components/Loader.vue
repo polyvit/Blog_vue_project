@@ -7,6 +7,7 @@
 <style lang="scss" scoped>
 .loading {
   top: 0;
+  left: 0;
   z-index: 101;
   height: 100%;
   width: 100%;

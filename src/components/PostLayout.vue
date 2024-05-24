@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import type { IBlog, IBlogPost } from '../types'
 import { defineProps } from 'vue'
+import Loader from './Loader.vue'
 
-defineProps<{
+const props = defineProps<{
   blog: Partial<IBlogPost & IBlog>
 }>()
+console.log(props.blog)
 </script>
 
 <template>
-  <div class="post-view">
+  <div class="post-view" v-if="blog">
     <div class="container quillWrapper">
       <img :src="blog?.blogPhotoFileURL ?? blog?.blogCoverPhoto" alt="cover-photo" />
       <h2>{{ blog?.blogTitle }}</h2>
@@ -16,6 +18,7 @@ defineProps<{
       <div class="post-content ql-editor" v-html="blog?.blogHTML"></div>
     </div>
   </div>
+  <Loader v-else />
 </template>
 
 <style lang="scss" scoped>

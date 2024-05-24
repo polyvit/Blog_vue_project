@@ -1,29 +1,19 @@
 <script setup lang="ts">
-import { reactive, computed } from 'vue'
-import BlogPost from '../components/BlogPost.vue'
+import { computed } from 'vue'
 import BlogCard from '../components/BlogCard.vue'
-import Updates from '../components/Updates.vue'
 import Banner from '../components/Banner.vue'
 import Loader from '../components/Loader.vue'
 import { useUserStore } from '../stores/UserStore'
 import { useBlogStore } from '../stores/BlogStore'
-import type { IPost } from '../types'
+import type { IBlogPost } from '../types'
 
 const blogStore = useBlogStore()
 const authUser = computed(() => useUserStore().user)
 
-const welcomeScreen = reactive<IPost>({
-  title: 'Welcome!',
-  post: 'Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!',
-  welcomeScreen: true,
-  photo: 'coding'
-})
-const blogPostsFeed = computed(() => {
-  return blogStore.blog.blogPosts.slice(0, 2)
-})
-
 const blogPostsCards = computed(() => {
-  return blogStore.blog.blogPosts.slice(2, 6)
+  const sortedArray = JSON.parse(JSON.stringify(blogStore.blog.blogPosts))
+  sortedArray.sort((a: IBlogPost, b: IBlogPost) => Number(b.date) - Number(a.date))
+  return sortedArray.slice(0, 4)
 })
 </script>
 

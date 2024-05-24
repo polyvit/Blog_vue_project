@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BlogListItem from '../components/BlogListItem.vue'
+import Loader from '../components/Loader.vue'
 import { computed } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
 import { onBeforeUnmount } from 'vue'
@@ -36,7 +37,10 @@ onBeforeUnmount(() => {
         <input type="checkbox" v-model="editPost" />
       </div>
     </div>
-    <BlogListItem :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
+    <template v-if="blogStore.blog.blogPosts.length">
+      <BlogListItem :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
+    </template>
+    <Loader v-else />
   </div>
 </template>
 
