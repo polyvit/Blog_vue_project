@@ -122,6 +122,9 @@ const publishPost = () => {
               blogCoverPhotoName: blogCoverPhotoName.value,
               blogTitle: blogTitle.value,
               profileId: profileId.value,
+              authorFirstName: userStore.profile.profileFirstName,
+              authorLastName: userStore.profile.profileLastName,
+              authorInitials: userStore.profile.profileInitials,
               date: timestamp
             })
             loading.value = false

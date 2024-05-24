@@ -26,4 +26,5 @@ Tasks:
 [x] - no content without reloading after loging in and signing out
 [x] - no blogPosts after first reloading
 [] - when come back from preview-post page there is no inputFile
-[] - supply blog details with initials, date, firstName and lastName
+[x] - supply blog details with initials, date, firstName and lastName
+[] - display only recent posts on the main page

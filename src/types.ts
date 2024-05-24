@@ -43,4 +43,7 @@ export interface IBlogPost {
   blogTitle: string
   date: Date
   blogPhotoFileURL?: undefined | string
+  authorFirstName: string
+  authorLastName: string
+  authorInitials: string
 }

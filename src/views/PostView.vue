@@ -27,7 +27,13 @@ onMounted(async () => {
 
 <template>
   <PostLayout v-show="currentBlog[0]" :blog="currentBlog[0]">
-    <BlogDetails :date="currentBlog[0]?.date" class="details" />
+    <BlogDetails
+      :date="currentBlog[0]?.date"
+      :initials="currentBlog[0]?.authorInitials"
+      :firstName="currentBlog[0]?.authorFirstName"
+      :lastName="currentBlog[0]?.authorLastName"
+      class="details"
+    />
   </PostLayout>
 </template>
 

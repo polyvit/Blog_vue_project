@@ -46,7 +46,12 @@ const editPostHandler = () => {
     <div class="info">
       <div>
         <h4>{{ post.blogTitle }}</h4>
-        <BlogDetails :date="post.date" />
+        <BlogDetails
+          :date="post.date"
+          :initials="post.authorInitials"
+          :firstName="post.authorFirstName"
+          :lastName="post.authorLastName"
+        />
       </div>
       <Button @click="goToPost" color="red">Read full article</Button>
     </div>

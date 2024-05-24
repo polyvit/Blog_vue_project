@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
+
 defineProps<{
   date: Date
+  initials: string
+  firstName: string
+  lastName: string
 }>()
 </script>
 
 <template>
   <div class="details">
     <div>
-      <span>AA</span>
+      <span>{{ initials ?? 'AA' }}</span>
     </div>
     <div>
-      <span>Author</span>
+      <span>{{ firstName ?? 'Author' }} {{ lastName ?? 'Author' }}</span>
       <span>{{ new Date(date).toLocaleString('en-US', { dateStyle: 'long' }) }}</span>
     </div>
   </div>

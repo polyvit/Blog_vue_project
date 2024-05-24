@@ -23,7 +23,6 @@ const blogPostsFeed = computed(() => {
 })
 
 const blogPostsCards = computed(() => {
-  console.log(blogStore.blog.blogPosts)
   return blogStore.blog.blogPosts.slice(2, 6)
 })
 </script>
