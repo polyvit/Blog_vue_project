@@ -44,7 +44,7 @@ const blogPostsCards = computed(() => {
         </div>
       </div>
     </div>
-    <Updates v-if="!authUser" />
+    <!-- <Updates v-if="!authUser" /> -->
   </div>
   <Loader v-else />
 </template>

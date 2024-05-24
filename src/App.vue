@@ -45,6 +45,7 @@ watch(route, () => checkRoute())
 </template>
 
 <style lang="scss">
+$black-color: black;
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 * {
   margin: 0;

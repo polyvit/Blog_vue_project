@@ -9,6 +9,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase/firebaseInit'
 import { useRouter } from 'vue-router'
+import Button from '../kit/Button.vue'
 
 const router = useRouter()
 
@@ -86,7 +87,7 @@ const register = async () => {
       </div>
       <div v-show="error" class="error">{{ errorMsg }}</div>
     </div>
-    <button @click.prevent="register">Sign Up</button>
+    <Button @click="register">Sign Up</Button>
   </AuthLayout>
 </template>
 

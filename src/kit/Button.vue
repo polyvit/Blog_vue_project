@@ -14,7 +14,7 @@ const clickHandler = () => {
 </script>
 
 <template>
-  <button @click="clickHandler" :class="['btn', `btn_${color}`]">
+  <button @click.prevent="clickHandler" :class="['btn', `btn_${color}`]">
     <div class="container">
       <slot></slot>
     </div>

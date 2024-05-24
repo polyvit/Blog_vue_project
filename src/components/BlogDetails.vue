@@ -22,6 +22,7 @@ $dark-color: #232536;
 
 .details {
   display: flex;
+  cursor: pointer;
   gap: 11px;
   > div:first-child {
     cursor: pointer;

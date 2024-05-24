@@ -7,6 +7,7 @@ import { reactive, ref } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import Input from '../kit/Input.vue'
+import Button from '../kit/Button.vue'
 
 const router = useRouter()
 
@@ -53,6 +54,7 @@ const validateHandler = (isValid: boolean) => {
 }
 
 const login = () => {
+  console.log('function')
   if (formData.email !== '' && formData.password !== '') {
     error.value = false
     errorMsg.value = ''
@@ -99,7 +101,7 @@ const login = () => {
     <RouterLink class="forgot-password" :to="{ name: 'reset-password' }"
       >Forgot your password?</RouterLink
     >
-    <button @click.prevent="login">Sign In</button>
+    <Button @click="login">Sign In</Button>
   </AuthLayout>
 </template>
 
@@ -138,6 +140,14 @@ const login = () => {
       position: absolute;
       left: 6px;
     }
+  }
+}
+.forgot-password {
+  margin: 15px 0px;
+  color: gray;
+  text-decoration: none;
+  &:visited {
+    color: rgba(128, 128, 128, 0.515);
   }
 }
 </style>

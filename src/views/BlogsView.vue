@@ -63,9 +63,11 @@ $dark-light-color: #474961;
 
     span {
       margin-right: 16px;
+      cursor: pointer;
     }
 
     input[type='checkbox'] {
+      cursor: pointer;
       position: relative;
       border: none;
       -webkit-appearance: none;
