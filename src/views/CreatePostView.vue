@@ -103,6 +103,7 @@ const imageAddedHandler = (
 }
 const publishPost = () => {
   if (blogTitle.value.length !== 0 && blogHTML.value.length !== 0) {
+    // console.log('coverPhotoFile', blogStore.coverPhotoFile)
     if (inputFile.value) {
       loading.value = true
       const storage = getStorage()
@@ -184,7 +185,10 @@ const editPost = async () => {
 
 <template>
   <div class="create-post">
-    <PhotoPreview v-show="blogStore.blog.blogPhotoPreview" @close-modal="togglePhotoPreview" />
+    <PhotoPreview
+      v-show="blogStore.blog.blogPhotoPreview && inputFile"
+      @close-modal="togglePhotoPreview"
+    />
     <Loader v-show="loading" />
     <div class="container">
       <div class="err-message" v-show="error">
@@ -204,11 +208,11 @@ const editPost = async () => {
           <button
             @click="togglePhotoPreview"
             class="preview"
-            :class="{ 'button-inactive': !blogStore.blog.blogPhotoFileURL }"
+            :class="{ 'button-inactive': !blogStore.blog.blogPhotoFileURL || !inputFile }"
           >
             Preview Photo
           </button>
-          <span v-show="blogStore.blog.blogPhotoFileURL"
+          <span v-show="blogStore.blog.blogPhotoFileURL && inputFile"
             >File Chosen: {{ blogCoverPhotoName }}</span
           >
         </div>

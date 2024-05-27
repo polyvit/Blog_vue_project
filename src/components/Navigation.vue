@@ -46,9 +46,6 @@ onMounted(() => {
           <RouterLink v-if="authUser" class="link" :to="{ name: 'create-post' }"
             >Create Post</RouterLink
           >
-          <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
-            >Login/Register</RouterLink
-          >
           <Button v-if="!authUser" color="white">
             <RouterLink class="btn_link" :to="{ name: 'login' }">Login/Register</RouterLink>
           </Button>

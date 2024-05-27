@@ -15,10 +15,12 @@ export const useBlogStore = defineStore('blogStore', () => {
   })
 
   const postLoaded = ref<boolean | null>(null)
+  const coverPhotoFile = ref<File | null>(null)
 
   function uploadFile(file: File) {
     blog.blogPhotoName = file.name
     blog.blogPhotoFileURL = URL.createObjectURL(file)
+    coverPhotoFile.value = file
   }
 
   function cleanCreatePost() {
@@ -74,6 +76,7 @@ export const useBlogStore = defineStore('blogStore', () => {
     cleanCreatePost,
     deletePost,
     setBlogState,
-    updatePost
+    updatePost,
+    coverPhotoFile
   }
 })

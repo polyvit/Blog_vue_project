@@ -25,6 +25,7 @@ Tasks:
 [x] - delete ts ignore from store
 [x] - no content without reloading after loging in and signing out
 [x] - no blogPosts after first reloading
-[] - when come back from preview-post page there is no inputFile
+[~] - when come back from preview-post page there is no inputFile
 [x] - supply blog details with initials, date, firstName and lastName
 [x] - display only recent posts on the main page
+[] - save uploaded photo when come back from preview page

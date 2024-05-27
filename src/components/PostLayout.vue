@@ -3,10 +3,9 @@ import type { IBlog, IBlogPost } from '../types'
 import { defineProps } from 'vue'
 import Loader from './Loader.vue'
 
-const props = defineProps<{
+defineProps<{
   blog: Partial<IBlogPost & IBlog>
 }>()
-console.log(props.blog)
 </script>
 
 <template>
