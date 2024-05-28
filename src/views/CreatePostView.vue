@@ -48,6 +48,9 @@ const error = ref<boolean | null>(null)
 const errorMsg = ref<string>('')
 const loading = ref<boolean>(false)
 
+const coverPhoto = computed(() => {
+  return inputFile.value ?? blogStore.coverPhotoFile
+})
 const blogTitle = computed({
   get() {
     return blogStore.blog.blogTitle
@@ -76,7 +79,6 @@ const showError = (errorText: string) => {
   errorMsg.value = errorText
   setTimeout(() => (error.value = false), 3000)
 }
-
 const uploadFileHandler = () => {
   if (blogPhoto.value && blogPhoto.value.files) {
     inputFile.value = blogPhoto.value.files[0]
@@ -103,15 +105,14 @@ const imageAddedHandler = (
 }
 const publishPost = () => {
   if (blogTitle.value.length !== 0 && blogHTML.value.length !== 0) {
-    // console.log('coverPhotoFile', blogStore.coverPhotoFile)
-    if (inputFile.value) {
+    if (coverPhoto.value) {
       loading.value = true
       const storage = getStorage()
       const docRef = firebaseRef(
         storage,
         `documents/blogCoverPhotos/${blogStore.blog.blogPhotoName}`
       )
-      uploadBytes(docRef, inputFile.value)
+      uploadBytes(docRef, coverPhoto.value)
         .then(() => {
           getDownloadURL(docRef).then(async (url) => {
             const timestamp = Date.now()
@@ -130,6 +131,7 @@ const publishPost = () => {
             })
             loading.value = false
             await blogStore.getPostsFromDb()
+            blogStore.resetData()
             router.push({ name: 'view-post', params: { postId: database.id } })
           })
         })
@@ -144,14 +146,14 @@ const publishPost = () => {
 const editPost = async () => {
   const database = doc(collection(db, 'posts'), props.routeId)
   if (blogTitle.value.length !== 0 && blogHTML.value.length !== 0) {
-    if (inputFile.value) {
+    if (coverPhoto.value) {
       loading.value = true
       const storage = getStorage()
       const docRef = firebaseRef(
         storage,
         `documents/blogCoverPhotos/${blogStore.blog.blogPhotoName}`
       )
-      uploadBytes(docRef, inputFile.value)
+      uploadBytes(docRef, coverPhoto.value)
         .then(() => {
           getDownloadURL(docRef).then(async (url) => {
             await updateDoc(database, {
@@ -175,6 +177,7 @@ const editPost = async () => {
     })
     await blogStore.updatePost(props.routeId as string)
     loading.value = false
+    blogStore.resetData()
     router.push({ name: 'view-post', params: { postId: database.id } })
     return
   }
@@ -186,7 +189,7 @@ const editPost = async () => {
 <template>
   <div class="create-post">
     <PhotoPreview
-      v-show="blogStore.blog.blogPhotoPreview && inputFile"
+      v-show="blogStore.blog.blogPhotoPreview && coverPhoto"
       @close-modal="togglePhotoPreview"
     />
     <Loader v-show="loading" />
@@ -208,11 +211,11 @@ const editPost = async () => {
           <button
             @click="togglePhotoPreview"
             class="preview"
-            :class="{ 'button-inactive': !blogStore.blog.blogPhotoFileURL || !inputFile }"
+            :class="{ 'button-inactive': !blogStore.blog.blogPhotoFileURL || !coverPhoto }"
           >
             Preview Photo
           </button>
-          <span v-show="blogStore.blog.blogPhotoFileURL && inputFile"
+          <span v-show="blogStore.blog.blogPhotoFileURL && coverPhoto"
             >File Chosen: {{ blogCoverPhotoName }}</span
           >
         </div>
@@ -258,7 +261,7 @@ const editPost = async () => {
     border-radius: 20px;
     padding: 12px 24px;
     color: #fff;
-    background-color: #303030;
+    background-color: #232536;
     text-decoration: none;
 
     @media (max-width: 913px) {
@@ -271,7 +274,7 @@ const editPost = async () => {
     }
 
     &:hover {
-      background-color: rgba(48, 48, 48, 0.7);
+      background-color: #474961;
     }
   }
 

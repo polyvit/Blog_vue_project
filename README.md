@@ -28,4 +28,6 @@ Tasks:
 [~] - when come back from preview-post page there is no inputFile
 [x] - supply blog details with initials, date, firstName and lastName
 [x] - display only recent posts on the main page
-[] - save uploaded photo when come back from preview page
+[x] - save uploaded photo when come back from preview page
+[x] - when click «see all» on the main page the scroll to the top should be
+[] - preview shouldn’t be displayed if there is no cover photo

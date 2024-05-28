@@ -86,6 +86,7 @@ $dark-color: #232536;
 
     .icon {
       display: flex;
+      cursor: pointer;
       justify-content: center;
       align-items: center;
       width: 35px;

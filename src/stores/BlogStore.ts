@@ -17,6 +17,14 @@ export const useBlogStore = defineStore('blogStore', () => {
   const postLoaded = ref<boolean | null>(null)
   const coverPhotoFile = ref<File | null>(null)
 
+  function resetData() {
+    coverPhotoFile.value = null
+    blog.blogPhotoName = ''
+    blog.blogPhotoFileURL = undefined
+    blog.blogHTML = 'Write your blog title here...'
+    blog.blogTitle = ''
+  }
+
   function uploadFile(file: File) {
     blog.blogPhotoName = file.name
     blog.blogPhotoFileURL = URL.createObjectURL(file)
@@ -77,6 +85,7 @@ export const useBlogStore = defineStore('blogStore', () => {
     deletePost,
     setBlogState,
     updatePost,
-    coverPhotoFile
+    coverPhotoFile,
+    resetData
   }
 })

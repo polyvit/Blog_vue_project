@@ -149,7 +149,7 @@ $black-color: black;
 .button-inactive {
   pointer-events: none !important;
   cursor: none !important;
-  background-color: rgba(128, 128, 128, 0.5) !important;
+  background-color: #474961 !important;
 }
 
 .error {

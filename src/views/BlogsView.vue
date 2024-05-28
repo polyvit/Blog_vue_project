@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BlogListItem from '../components/BlogListItem.vue'
 import Loader from '../components/Loader.vue'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
 import { onBeforeUnmount } from 'vue'
 import { useBlogStore } from '../stores/BlogStore'
@@ -21,6 +21,13 @@ const editPost = computed({
   set(newValue) {
     postsStore.toggleEditPost(newValue)
   }
+})
+
+onMounted(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
 })
 
 onBeforeUnmount(() => {
