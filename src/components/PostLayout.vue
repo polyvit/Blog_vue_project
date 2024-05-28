@@ -1,7 +1,20 @@
 <script setup lang="ts">
 import type { IBlog, IBlogPost } from '../types'
-import { defineProps } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { computed, defineProps } from 'vue'
 import Loader from './Loader.vue'
+import Button from '../kit/Button.vue'
+
+const route = useRoute()
+const router = useRouter()
+
+const preview = computed(() => {
+  return route.name == 'view-post'
+})
+
+const comeBack = () => {
+  router.go(-1)
+}
 
 defineProps<{
   blog: Partial<IBlogPost & IBlog>
@@ -15,6 +28,7 @@ defineProps<{
       <h2>{{ blog?.blogTitle }}</h2>
       <slot></slot>
       <div class="post-content ql-editor" v-html="blog?.blogHTML"></div>
+      <Button v-show="!preview" @click="comeBack">Come back</Button>
     </div>
   </div>
   <Loader v-else />

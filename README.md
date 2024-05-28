@@ -30,4 +30,5 @@ Tasks:
 [x] - display only recent posts on the main page
 [x] - save uploaded photo when come back from preview page
 [x] - when click «see all» on the main page the scroll to the top should be
-[] - preview shouldn’t be displayed if there is no cover photo
+[x] - preview shouldn’t be displayed if there is no cover photo
+[] - when come back from preview page in edit mode all new data should be displayed

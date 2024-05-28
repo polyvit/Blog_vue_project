@@ -95,18 +95,19 @@ $black-color: black;
   cursor: pointer;
   margin-top: 24px;
   padding: 12px 24px;
-  background-color: #303030;
+  background-color: #232536;
   color: #fff;
   border-radius: 20px;
   border: none;
-  text-transform: uppercase;
+  // text-transform: uppercase;
+  text-decoration: none;
 
   &:focus {
     outline: none;
   }
 
   &:hover {
-    background-color: rgba(48, 48, 48, 0.7);
+    background-color: #474961;
   }
 }
 

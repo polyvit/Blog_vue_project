@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useBlogStore } from '../stores/BlogStore'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, onBeforeUnmount } from 'vue'
 import CreatePostView from './CreatePostView.vue'
 import type { IBlogPost } from '../types'
 
 const {
   blog: { blogPosts },
-  setBlogState
+  setBlogState,
+  resetData
 } = useBlogStore()
 
 const route = useRoute()
@@ -21,6 +22,10 @@ onMounted(() => {
     return post.blogId === routeId.value
   })
   setBlogState(currentBlog.value[0])
+})
+
+onBeforeUnmount(() => {
+  resetData()
 })
 </script>
 

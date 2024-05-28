@@ -7,7 +7,7 @@ window.Quill = Quill
 import QuillResizeImage from 'quill-resize-image'
 //@ts-ignore
 window.QuillResizeImage = QuillResizeImage
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, onBeforeUnmount, defineProps } from 'vue'
 import { getStorage, ref as firebaseRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, setDoc, collection, updateDoc } from 'firebase/firestore'
 import Loader from '../components/Loader.vue'
@@ -16,7 +16,6 @@ import { useBlogStore } from '../stores/BlogStore'
 import { useUserStore } from '../stores/UserStore'
 import { db } from '../firebase/firebaseInit'
 import { useRouter } from 'vue-router'
-import { defineProps } from 'vue'
 
 const editorSettings = reactive({
   editorSettings: {
@@ -231,7 +230,12 @@ const editPost = async () => {
       <div class="actions">
         <button v-if="editing" @click="editPost">Edit</button>
         <button v-else @click="publishPost">Publish</button>
-        <RouterLink :to="{ name: 'preview' }" class="router-button">Post Preview</RouterLink>
+        <RouterLink
+          v-if="coverPhoto && blogTitle.length"
+          :to="{ name: 'preview', query: { editing: `${props.editing ?? 'false'}` } }"
+          class="router-button"
+          >Post Preview</RouterLink
+        >
       </div>
     </div>
   </div>
