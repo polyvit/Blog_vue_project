@@ -1,6 +1,11 @@
+<script setup lang="ts">
+import IconClose from './icons/IconClose.vue'
+</script>
+
 <template>
   <div class="modal">
     <div class="modal-content">
+      <IconClose @click="$emit('close-modal')" class="icon" />
       <slot></slot>
     </div>
   </div>
@@ -27,6 +32,17 @@
     padding: 40px 30px;
     background-color: #fff;
     position: relative;
+
+    .icon {
+      width: 24px;
+      height: auto;
+      cursor: pointer;
+      font-size: 24px;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: #303030;
+    }
   }
 }
 </style>

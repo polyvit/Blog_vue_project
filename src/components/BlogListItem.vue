@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IBlogPost } from '../types'
-import { computed, defineProps } from 'vue'
+import { computed, defineProps, ref, defineEmits } from 'vue'
 import { useRouter } from 'vue-router'
 import Button from '../kit/Button.vue'
 import BlogDetails from './BlogDetails.vue'
@@ -13,6 +13,8 @@ const router = useRouter()
 const blogStore = useBlogStore()
 const postsStore = usePostsStore()
 
+const emit = defineEmits(['delete'])
+
 const props = defineProps<{
   post: IBlogPost
 }>()
@@ -24,11 +26,11 @@ const editPost = computed(() => {
   return postsStore.editPost
 })
 
-const deletePostHandler = () => {
-  blogStore.deletePost(props.post.blogId)
-}
 const editPostHandler = () => {
   router.push({ name: 'edit-post', params: { postId: props.post.blogId } })
+}
+const deleteClickHandler = () => {
+  emit('delete', props.post.blogId)
 }
 </script>
 
@@ -38,7 +40,7 @@ const editPostHandler = () => {
       <div @click.stop="editPostHandler" class="icon">
         <IconEdit class="edit" />
       </div>
-      <div @click.stop="deletePostHandler" class="icon">
+      <div @click.stop="deleteClickHandler" class="icon">
         <IconDelete class="delete" />
       </div>
     </div>

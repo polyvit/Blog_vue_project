@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import BlogListItem from '../components/BlogListItem.vue'
 import Loader from '../components/Loader.vue'
-import { computed, onMounted } from 'vue'
+import Notification from '../components/Notification.vue'
+import { computed, onMounted, ref } from 'vue'
 import { usePostsStore } from '../stores/PostsStore'
 import { onBeforeUnmount } from 'vue'
 import { useBlogStore } from '../stores/BlogStore'
@@ -13,7 +14,6 @@ const authUser = computed(() => useUserStore().user)
 const blogPostsCards = computed(() => {
   return blogStore.blog.blogPosts
 })
-
 const editPost = computed({
   get() {
     return postsStore.editPost
@@ -33,9 +33,27 @@ onMounted(() => {
 onBeforeUnmount(() => {
   postsStore.toggleEditPost(false)
 })
+
+const showPopup = ref<boolean>(false)
+const postToDelete = ref<undefined | string>(undefined)
+
+const deletePostHandler = () => {
+  if (postToDelete.value) {
+    blogStore.deletePost(postToDelete.value)
+    showPopup.value = !showPopup.value
+  }
+}
+
+const toggleShowPopup = (id: any) => {
+  if (id) {
+    postToDelete.value = id
+  }
+  showPopup.value = !showPopup.value
+}
 </script>
 
 <template>
+  <Notification v-if="showPopup" @close-modal="toggleShowPopup" @clickBtn="deletePostHandler" />
   <div class="blog-card-wrap">
     <div class="top">
       <h3>All posts</h3>
@@ -45,7 +63,12 @@ onBeforeUnmount(() => {
       </div>
     </div>
     <template v-if="blogStore.blog.blogPosts.length">
-      <BlogListItem :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
+      <BlogListItem
+        :post="post"
+        v-for="(post, index) in blogPostsCards"
+        :key="index"
+        @delete="toggleShowPopup"
+      />
     </template>
     <Loader v-else />
   </div>

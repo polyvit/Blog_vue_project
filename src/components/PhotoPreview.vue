@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ModalLayout from './ModalLayout.vue'
-import IconClose from './icons/IconClose.vue'
+// import IconClose from './icons/IconClose.vue'
 import { useBlogStore } from '../stores/BlogStore'
 
 const blogStore = useBlogStore()
@@ -8,7 +8,7 @@ const blogStore = useBlogStore()
 
 <template>
   <ModalLayout>
-    <IconClose @click="$emit('close-modal')" class="icon" />
+    <!-- <IconClose @click="$emit('close-modal')" class="icon" /> -->
     <img :src="blogStore.blog.blogPhotoFileURL" alt="photo" />
   </ModalLayout>
 </template>
