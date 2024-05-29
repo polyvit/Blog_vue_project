@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useBlogStore } from '../stores/BlogStore'
-import { onMounted, ref, onBeforeUnmount } from 'vue'
+import { onMounted, ref } from 'vue'
 import CreatePostView from './CreatePostView.vue'
 import type { IBlogPost } from '../types'
 
@@ -24,8 +24,9 @@ onMounted(() => {
   setBlogState(currentBlog.value[0])
 })
 
-onBeforeUnmount(() => {
-  resetData()
+onBeforeRouteLeave((to, _, next) => {
+  if (to.name !== 'preview') resetData()
+  next()
 })
 </script>
 

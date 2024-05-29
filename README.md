@@ -32,3 +32,4 @@ Tasks:
 [x] - when click «see all» on the main page the scroll to the top should be
 [x] - preview shouldn’t be displayed if there is no cover photo
 [] - when come back from preview page in edit mode all new data should be displayed
+[] - show popup before delete post in posts list

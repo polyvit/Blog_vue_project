@@ -72,6 +72,9 @@ const blogCoverPhotoName = computed(() => {
 const profileId = computed(() => {
   return userStore.profile.profileId
 })
+const isCoverPhotoNeeded = computed(() => {
+  return props.editing ? true : coverPhoto.value
+})
 
 const showError = (errorText: string) => {
   error.value = true
@@ -199,7 +202,8 @@ const editPost = async () => {
       <div class="blog-info">
         <input type="text" placeholder="Enter Blog Title" v-model="blogTitle" />
         <div class="upload-file">
-          <label for="blog-photo">Upload Cover Photo</label>
+          <label v-if="props.editing" for="blog-photo">Update Cover Photo</label>
+          <label v-else for="blog-photo">Upload Cover Photo</label>
           <input
             @change="uploadFileHandler"
             ref="blogPhoto"
@@ -208,6 +212,7 @@ const editPost = async () => {
             accept=".png, .jpg, .jpeg"
           />
           <button
+            v-show="coverPhoto"
             @click="togglePhotoPreview"
             class="preview"
             :class="{ 'button-inactive': !blogStore.blog.blogPhotoFileURL || !coverPhoto }"
@@ -231,7 +236,7 @@ const editPost = async () => {
         <button v-if="editing" @click="editPost">Edit</button>
         <button v-else @click="publishPost">Publish</button>
         <RouterLink
-          v-if="coverPhoto && blogTitle.length"
+          v-if="isCoverPhotoNeeded && blogTitle.length"
           :to="{ name: 'preview', query: { editing: `${props.editing ?? 'false'}` } }"
           class="router-button"
           >Post Preview</RouterLink
