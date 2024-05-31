@@ -82,14 +82,6 @@ const login = () => {
 <template>
   <AuthLayout :data="data">
     <div class="inputs">
-      <!-- <div class="input">
-        <input type="text" placeholder="Email" v-model="formData.email" />
-        <IconEnvelope class="icon" />
-      </div> -->
-      <!-- <div class="input">
-        <input type="password" placeholder="Password" v-model="formData.password" />
-        <IconLock class="icon" />
-      </div> -->
       <Input v-model="formData.email" :data="emailData" @validate="validateHandler">
         <IconEnvelope />
       </Input>
