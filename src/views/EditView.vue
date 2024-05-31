@@ -8,7 +8,8 @@ import type { IBlogPost } from '../types'
 const {
   blog: { blogPosts },
   setBlogState,
-  resetData
+  resetData,
+  getPostsFromDb
 } = useBlogStore()
 
 const route = useRoute()
@@ -16,12 +17,15 @@ const route = useRoute()
 const currentBlog = ref<IBlogPost[]>([])
 const routeId = ref('')
 
-onMounted(() => {
+onMounted(async () => {
   routeId.value = route.params.postId as string
-  currentBlog.value = blogPosts.filter((post) => {
-    return post.blogId === routeId.value
-  })
-  setBlogState(currentBlog.value[0])
+  await getPostsFromDb()
+  if (!Boolean(route.query.afterPreview)) {
+    currentBlog.value = blogPosts.filter((post) => {
+      return post.blogId === routeId.value
+    })
+    setBlogState(currentBlog.value[0])
+  }
 })
 
 onBeforeRouteLeave((to, _, next) => {

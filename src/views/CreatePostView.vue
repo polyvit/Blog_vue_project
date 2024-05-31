@@ -7,7 +7,7 @@ window.Quill = Quill
 import QuillResizeImage from 'quill-resize-image'
 //@ts-ignore
 window.QuillResizeImage = QuillResizeImage
-import { computed, reactive, ref, onBeforeUnmount, defineProps } from 'vue'
+import { computed, reactive, ref, defineProps } from 'vue'
 import { getStorage, ref as firebaseRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, setDoc, collection, updateDoc } from 'firebase/firestore'
 import Loader from '../components/Loader.vue'
@@ -237,7 +237,13 @@ const editPost = async () => {
         <button v-else @click="publishPost">Publish</button>
         <RouterLink
           v-if="isCoverPhotoNeeded && blogTitle.length"
-          :to="{ name: 'preview', query: { editing: `${props.editing ?? 'false'}` } }"
+          :to="{
+            name: 'preview',
+            query: {
+              mode: `${props.editing ? 'edit' : 'create'}`,
+              ...(props.routeId && { routeId: `${props.routeId}` })
+            }
+          }"
           class="router-button"
           >Post Preview</RouterLink
         >

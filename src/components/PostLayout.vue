@@ -13,10 +13,18 @@ const preview = computed(() => {
 })
 
 const comeBack = () => {
-  router.go(-1)
+  if (route.query.mode == 'edit') {
+    router.push({
+      name: 'edit-post',
+      params: { postId: String(route.query.routeId) },
+      query: { afterPreview: 'true' }
+    })
+  } else {
+    router.go(-1)
+  }
 }
 
-defineProps<{
+const props = defineProps<{
   blog: Partial<IBlogPost & IBlog>
 }>()
 </script>
