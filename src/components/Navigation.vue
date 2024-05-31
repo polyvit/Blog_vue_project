@@ -74,11 +74,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-$dark-color: #232536;
-$white-color: white;
-$pink-button: #ff5959;
-$black-color: black;
-
 header {
   background-color: $dark-color;
   padding: 0 25px;

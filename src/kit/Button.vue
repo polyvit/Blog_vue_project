@@ -22,10 +22,6 @@ const clickHandler = () => {
 </template>
 
 <style lang="scss" scoped>
-$white-color: white;
-$pink-button: #ff5959;
-$black-color: black;
-
 .btn {
   transition: 500ms ease all;
   cursor: pointer;

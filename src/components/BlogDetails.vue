@@ -22,8 +22,6 @@ defineProps<{
 </template>
 
 <style lang="scss" scoped>
-$dark-color: #232536;
-
 .details {
   display: flex;
   cursor: pointer;

@@ -53,7 +53,6 @@ const signOutHandler = () => {
 </template>
 
 <style lang="scss" scoped>
-$dark-light-color: #474961;
 .profile {
   position: relative;
   cursor: pointer;

@@ -61,9 +61,6 @@ const deleteClickHandler = () => {
 </template>
 
 <style lang="scss" scoped>
-$light-gray-color: #f4f0f8;
-$dark-color: #232536;
-
 .wrapper {
   position: relative;
   display: flex;

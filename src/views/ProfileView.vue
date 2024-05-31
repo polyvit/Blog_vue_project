@@ -81,8 +81,6 @@ const username = computed({
 </template>
 
 <style lang="scss" scoped>
-$dark-color: #232536;
-$dark-light-color: #474961;
 .profile {
   position: relative;
   .container {

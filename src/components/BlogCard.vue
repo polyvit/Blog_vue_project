@@ -57,9 +57,6 @@ const goToPost = () => {
 </template>
 
 <style lang="scss" scoped>
-$light-gray-color: #f4f0f8;
-$dark-color: #232536;
-
 .blog-card {
   position: relative;
   cursor: pointer;

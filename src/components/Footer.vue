@@ -49,8 +49,6 @@ const authUser = computed(() => useUserStore().user)
 </template>
 
 <style lang="scss" scoped>
-$dark-color: #232536;
-
 footer {
   margin-top: auto;
   padding: 50px 25px;

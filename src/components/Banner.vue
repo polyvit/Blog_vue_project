@@ -33,9 +33,6 @@ const authUser = computed(() => useUserStore().user)
 </template>
 
 <style lang="scss" scoped>
-$banner-color: #31323c;
-$white-color: white;
-
 .container {
   background-color: $banner-color;
   padding: 20px 100px;
