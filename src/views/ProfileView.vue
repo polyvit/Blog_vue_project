@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Modal from '../components/Modal.vue'
+import Button from '../kit/Button.vue'
 import { computed, ref } from 'vue'
 import { useUserStore } from '../stores/UserStore'
 import IconAdmin from '../components/icons/IconAdmin.vue'
@@ -73,13 +74,15 @@ const username = computed({
           <label for="email">Email:</label>
           <input disabled type="text" id="email" v-model="email" />
         </div>
-        <button @click="updateProfile">Save Changes</button>
+        <Button @click="updateProfile">Save Changes</Button>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+$dark-color: #232536;
+$dark-light-color: #474961;
 .profile {
   position: relative;
   .container {
@@ -110,7 +113,7 @@ const username = computed({
         width: 80px;
         height: 80px;
         font-size: 32px;
-        background-color: #303030;
+        background-color: $dark-light-color;
         color: #fff;
         display: flex;
         align-self: center;
@@ -126,7 +129,7 @@ const username = computed({
         font-size: 14px;
         padding: 8px 24px;
         border-radius: 8px;
-        background-color: #303030;
+        background-color: $dark-light-color;
         margin: 16px 0;
         text-align: center;
         text-transform: capitalize;
