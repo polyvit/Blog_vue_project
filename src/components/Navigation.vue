@@ -5,12 +5,21 @@ import Button from '../kit/Button.vue'
 import { computed, ref } from 'vue'
 import { onMounted } from 'vue'
 import { useUserStore } from '../stores/UserStore'
+import { useRouter } from 'vue-router'
 
 const authUser = computed(() => useUserStore().user)
 
 const mobile = ref<null | boolean>(null)
 const mobileNav = ref<null | boolean>(null)
 const windowWidth = ref<null | number>(null)
+
+const router = useRouter()
+
+router.beforeResolve(() => {
+  if (mobile.value && mobileNav.value) {
+    mobileNav.value = false
+  }
+})
 
 const checkScreen = () => {
   windowWidth.value = window.innerWidth
@@ -61,9 +70,6 @@ onMounted(() => {
         <RouterLink class="link" :to="{ name: 'blogs' }">Blogs</RouterLink>
         <RouterLink v-if="authUser" class="link" :to="{ name: 'create-post' }"
           >Create Post</RouterLink
-        >
-        <RouterLink v-if="!authUser" class="link" :to="{ name: 'login' }"
-          >Log in/Register</RouterLink
         >
         <Button v-if="!authUser" color="white">
           <RouterLink class="btn_link" :to="{ name: 'login' }">Login/Register</RouterLink>
@@ -156,6 +162,10 @@ header {
     .link {
       padding: 15px 0;
       color: $white-color;
+
+      &:last-child {
+        padding-bottom: 30px;
+      }
     }
   }
 

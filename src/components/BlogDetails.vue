@@ -2,7 +2,7 @@
 import { defineProps } from 'vue'
 
 defineProps<{
-  date: Date
+  date: number
   initials: string
   firstName: string
   lastName: string

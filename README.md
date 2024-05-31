@@ -1,6 +1,6 @@
 # Blog App
 
-_Completed in Apr, 2024_
+_Completed in May, 2024_
 
 [See demo]()
 
@@ -33,3 +33,4 @@ Tasks:
 [x] - preview shouldn’t be displayed if there is no cover photo
 [x] - when come back from preview page in edit mode all new data should be displayed
 [x] - show popup before delete post in posts list
+[x] - after each click on mobile navigation it should be closed
