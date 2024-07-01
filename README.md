@@ -2,7 +2,7 @@
 
 _Completed in May, 2024_
 
-[See demo]()
+[See demo](https://blog-app-polyvit.netlify.app)
 
 Проект персонального блога. Выполнен с использованием фреймворка Vue 3 в стиле Composition API.
 
